@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;    
+}
+@model PresentationModel
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    @await Html.PartialAsync("MetatagsPartial")
+    @await Html.PartialAsync("CssPartial")
+    @await Html.PartialAsync("ScriptsPartial")
+</head>
+
+<body>
+    <script type="text/javascript">
+        var markers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Boards));
+    </script>
+
+
+    <div id="container">
+        <table class="table-main">
+            <tr>
+                <td class="tableft">
+                    <div id="divinf">
+                         <div class="logo">                             
+                             <div class=logo-image>
+                                 <a href="https://www.oohelp.net/">
+                                     <img src="~/images/Logo_w150.png" alt="Oohelp.net">
+                                 </a>
+                             </div>
+
+                             <div class="logo-text">
+                                 <span class="logo-name"> @Model.ClientName </span>
+                                <br><span class="logo-creat">@DateTime.Now</span>
+                             </div>
+                        </div>
+                        <br>
+                        <form id='frm-boards'>
+                            <table id="tab-boards-id" class="tab-boards">
+                                <tr>
+                                    <th></th>
+                                    <th>Код</th>
+                                    <th>Город</th>
+                                    <th>Тип</th>
+                                    <th>Адрес</th>
+                                </tr>
+                                @foreach(var brd in Model.Boards)
+                                {
+                                    <tr id=@brd.RowId() class="trcpas">
+                                        <td width=5%>
+                                            <input name="ch[]" class="checkbox" id=@brd.CheckBoxId() type="checkbox" value=@brd.SupplierCode>
+                                        </td>
+                                        <td width=10%>@brd.SupplierCode</td>
+                                        <td width=15%>@brd.City</td>
+                                        <td width=10%>@brd.TypeSize()</td>
+                                        <td>@brd.Address</td>
+                                    </tr>
+                                }   
+                            </table>
+
+                        </form>
+
+
+                    </div>
+                    
+                </td>
+
+                <td class="tabright">
+                    <div id="map_part"/>
+                </td>
+
+            </tr>
+        </table>
+       
+    </div>
+    <script async=async defer=defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnJoPklL83K0yIO0KFlngFOzt0hOLwuVg&callback=initMap" type="text/javascript"></script>
+
+</body>
+
+</html>
