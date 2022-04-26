@@ -56,18 +56,24 @@ body {
 }
 
 #tab-boards-id {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 11px;
+    font-size: 11px;    
     margin: 5px 10px 5px 0px;
     width: 100%;
 }
+    #tab-boards-id tr.clicked {
+        background: #ccd;
+    }
+
+    #tab-boards-id tr.highlight {
+        background: #eef;
+    }
 
 .tab-boards, .tab-boards td {
-    border: 1px solid #d4d4d4;
+    border: 1px #DDD solid;
     border-collapse: collapse;
     padding: 5px 5px 5px 5px;
 }
+
 .tab-boards th {
     border: 1px solid #d4d4d4;
     border-collapse: collapse;
@@ -75,6 +81,28 @@ body {
     background-color: #1774a6;
     color: #f2f2f2;
 }
+.trcpas {
+    background-color: none;
+    color: #727a84;
+    cursor: pointer;
+}
+
+.trcact {
+    background-color: #208DC8;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+
+/*Оформление информационного окна*/
+.nosinf {
+    width: 490px;
+    text-align: center;
+}
+
+
+
+
 #map_part {
     width: 100%;
     height: 100%;
