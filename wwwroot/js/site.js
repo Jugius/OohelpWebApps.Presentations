@@ -1,11 +1,16 @@
-﻿function initMap() {
+﻿var googleMap;
+var infoWindow;
+var googleMarkers = [];
+
+function initMap() {
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };    
-    var map = new google.maps.Map(document.getElementById("map_part"), mapOptions);
+    googleMap = new google.maps.Map(document.getElementById("map_part"), mapOptions);
+    infoWindow = new google.maps.InfoWindow();
 
-    setZoom(map, markers);
-    setMarkers(map, markers)
+    setZoom(googleMap, markers);
+    setMarkers(googleMap, markers)
 }
 
 function setZoom(map, markers) {
@@ -17,7 +22,7 @@ function setZoom(map, markers) {
     map.fitBounds(boundbox);
 }
 function setMarkers(map, markers) {
-    var infoWindow = new google.maps.InfoWindow();
+    
     for (i = 0; i < markers.length; i++) {
         var data = markers[i]
         var markerLatlng = new google.maps.LatLng(data.Latitude, data.Longitude);
@@ -30,17 +35,28 @@ function setMarkers(map, markers) {
         });
         (function (marker, data) {
             google.maps.event.addListener(marker, "click", function (e) {
+                deselectRows();
+                document.getElementById(data.Id).className = "trcact";
                 infoWindow.setContent(data.InfoHtml);
                 infoWindow.open(map, marker);
             });
         })(marker, data);
+        googleMarkers[i] = marker;
     }
 }
 function onRowClick(x) {
-    for (var i = 0; i < markers.length; i++) {
-        document.getElementById(markers[i].Id).className = "trcpas";
-    }
+    deselectRows();
     x.className = "trcact";
+    infoWindow.setContent(markers[x.rowIndex - 1].InfoHtml);
+    infoWindow.open(googleMap, googleMarkers[x.rowIndex - 1]);
+    //alert("Row index is: " + x.rowIndex);
+}
+function deselectRows() {
+    var selected = document.getElementsByClassName("trcact");
+    for (var i = 0; i < selected.length; i++) {
+        selected[i].className = "trcpas";
+
+    }
 }
 
 
@@ -369,14 +385,7 @@ function onRowClick(x) {
 //    }
 //    document.getElementById("container").className = "legendon";
 //}
-//function setZoom(map, markers) {
-//    var boundbox = new google.maps.LatLngBounds();
-//    for (var i = 0; i < markers.length; i++) {
-//        boundbox.extend(new google.maps.LatLng(markers[i][1], markers[i][2]));
-//    }
-//    map.setCenter(boundbox.getCenter());
-//    map.fitBounds(boundbox);
-//}
+
 //function chk(markers, site) {
 //    var f = document.getElementById('chform');
 //    var rarr = document.getElementsByName('rsi');
