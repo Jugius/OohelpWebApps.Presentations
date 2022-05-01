@@ -36,6 +36,12 @@ function setMarkers(map, markers) {
         })(marker, data);
     }
 }
+function onRowClick(x) {
+    for (var i = 0; i < markers.length; i++) {
+        document.getElementById(markers[i].Id).className = "trcpas";
+    }
+    x.className = "trcact";
+}
 
 
 

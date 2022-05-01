@@ -46,7 +46,7 @@
                                 </tr>
                                 @foreach(var brd in Model.Boards)
                                 {
-                                    <tr id=@brd.RowId() class="trcpas">
+                                    <tr id=@brd.RowId() class="trcpas" onclick="onRowClick(this)">
                                         <td width=5%>
                                             <input name="ch[]" class="checkbox" id=@brd.CheckBoxId() type="checkbox" value=@brd.SupplierCode>
                                         </td>
