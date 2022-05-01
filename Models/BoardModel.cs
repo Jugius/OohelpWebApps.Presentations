@@ -48,9 +48,9 @@ namespace OohelpWebApps.Presentations.Models
                 return sb.ToString();
             }
         }
-        public string IconLink => ICON_CIRCLE_BASE_LINK + "eb17c4";
+        public string IconLink => ICON_ROUNDED_BILLBOARD_BASE_LINK + "eb17c4";
         const string ICON_CIRCLE_BASE_LINK = @"https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png&highlight=ff000000,";
-
+        const string ICON_ROUNDED_BILLBOARD_BASE_LINK = @"https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png,icons/onion/1612-japanese-post-office_4x.png&highlight=ff000000,";
 
         public string RowId() => this.Id.ToString();
         public string CheckBoxId() => "chcode" + this.Id.ToString();
