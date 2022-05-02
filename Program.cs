@@ -1,7 +1,25 @@
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    //кодирование кириллицы (иначе на выходе строка в UTF8)
+    //options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
+
+    //Сериализация типа Enum в строку
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+    //запись форматированного JSON 
+    //options.JsonSerializerOptions.WriteIndented = true;
+
+    //сбрасываем в ноль формат имен свойств (по умолчанию CamelCase, вида "myData")
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+
+    //игнорировать свойства с нулевыми значениями
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
 
 var app = builder.Build();
 
