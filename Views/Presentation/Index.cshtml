@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;    
 }
-@model PresentationModel
+@model PresentationViewModel
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -46,13 +46,13 @@
                                 </tr>
                                 @foreach(var brd in Model.Boards)
                                 {
-                                    <tr id=@brd.RowId() class="trcpas" onclick="onRowClick(this)">
+                                    <tr id=@brd.Id class="trcpas" onclick="onRowClick(this)">
                                         <td width=5%>
                                             <input name="ch[]" class="checkbox" id=@brd.CheckBoxId() type="checkbox" value=@brd.SupplierCode>
                                         </td>
                                         <td width=10%>@brd.SupplierCode</td>
                                         <td width=15%>@brd.City</td>
-                                        <td width=10%>@brd.TypeSize()</td>
+                                        <td width=10%>@brd.TypeSize</td>
                                         <td>@brd.Address</td>
                                     </tr>
                                 }   

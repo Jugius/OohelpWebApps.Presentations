@@ -1,10 +1,10 @@
 ﻿namespace OohelpWebApps.Presentations.Models
 {
-    public class PresentationModel
+    public class PresentationViewModel
     {
         public string ClientName { get; set; }
         public Guid Id { get; set; }
-        public BoardModel[] Boards { get; set; }
+        public BoardViewModel[] Boards { get; set; }
                 
     }
 

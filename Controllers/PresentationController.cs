@@ -1,21 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OohelpWebApps.Presentations.Models;
+using OohelpWebApps.Presentations.Services;
 
 namespace OohelpWebApps.Presentations.Controllers
 {
     public class PresentationController : Controller
     {
-        public PresentationController(ILogger<PresentationController> logger)
+        private readonly ILogger<PresentationController> _logger;
+        private readonly PresentationService _presentationService;
+        public PresentationController(ILogger<PresentationController> logger, PresentationService presentationService)
         {
             _logger = logger;
+            _presentationService = presentationService;
         }
-        public IActionResult Index(Guid id)
-        {
-            var model = PresentationModel.Default;
+        public async Task<IActionResult> Index(string id)
+        {            
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var model = await _presentationService.GetPresentationAsync(Guid.NewGuid());
             return View(model);
         }
         
-        private readonly ILogger<PresentationController> _logger;      
+        
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()

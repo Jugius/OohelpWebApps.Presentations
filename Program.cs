@@ -1,6 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using OohelpWebApps.Presentations;
+using OohelpWebApps.Presentations.Domain;
+using OohelpWebApps.Presentations.Domain.Repositories.Interfaces;
+using OohelpWebApps.Presentations.Domain.Repositories.Mock;
+using OohelpWebApps.Presentations.Services;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.Bind("Project", new AppConfig());
+builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(AppConfig.ConnectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
@@ -20,6 +29,9 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
     //игнорировать свойства с нулевыми значениями
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
+
+builder.Services.AddTransient<IPresentationRepository, PresentationRepository>();
+builder.Services.AddSingleton<PresentationService>();
 
 var app = builder.Build();
 

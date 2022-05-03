@@ -4,6 +4,8 @@ namespace OohelpWebApps.Presentations.Domain.Repositories.Mock
 {
     public class PresentationRepository : Interfaces.IPresentationRepository
     {
+        public IQueryable<PresentationDto> Presentations => throw new NotImplementedException();
+
         public Task<bool> CreateAsync(PresentationDto presentation)
         {
             throw new NotImplementedException();
