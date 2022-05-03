@@ -32,6 +32,51 @@ public class Guider
         Convert.TryFromBase64Chars(base64Chars, valueBites, out _);
         return new Guid(valueBites);
     }
+    public static bool TryToGuidFromString(ReadOnlySpan<char> str, out Guid result, out string error)
+    {
+        if (str == null || str.IsEmpty)
+        { 
+            result = default(Guid);
+            error = "Empty String";
+            return false;
+        }
+
+        if (str.Length != 22)
+        {
+            result = default(Guid);
+            error = "Invalid string";
+            return false;
+        }
+
+        try
+        {
+            Span<char> base64Chars = stackalloc char[24];
+
+            for (int i = 0; i < 22; i++)
+            {
+                base64Chars[i] = str[i] switch
+                {
+                    NegationChar => SlashChar,
+                    UnderscoreChar => PlusChar,
+                    _ => str[i]
+                };
+            }
+            base64Chars[22] = EqualsChar;
+            base64Chars[23] = EqualsChar;
+
+            Span<byte> valueBites = stackalloc byte[16];
+            Convert.TryFromBase64Chars(base64Chars, valueBites, out _);
+            result = new Guid(valueBites);
+            error = string.Empty;
+            return true;
+        }
+        catch (Exception e)
+        {
+            result = Guid.Empty;
+            error = e.ToString();
+            return false;
+        }
+    }
 
     public static string ToStringFromGuid(Guid guid)
     {
