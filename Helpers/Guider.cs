@@ -80,6 +80,8 @@ public class Guider
 
     public static string ToStringFromGuid(Guid guid)
     {
+        if(guid.Equals(Guid.Empty)) return string.Empty;
+
         Span<byte> guidBites = stackalloc byte[16];
         Span<byte> base64Bytes = stackalloc byte[24];
 

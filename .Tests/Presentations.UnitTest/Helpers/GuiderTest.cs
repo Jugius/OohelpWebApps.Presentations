@@ -89,5 +89,13 @@ namespace Presentations.UnitTest.Helpers
 
             Assert.NotEqual(guid, guidBack);
         }
+        [Fact]
+        public void GuidEmptyToString_ReturnEmptyString()
+        {
+            var str = Guider.ToStringFromGuid(guid:System.Guid.Empty);
+            output.WriteLine(str);
+
+            Assert.Equal(str, string.Empty);
+        }
     }
 }
