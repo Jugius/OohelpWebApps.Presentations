@@ -63,8 +63,8 @@ namespace OohelpWebApps.Presentations.Domain.Repositories.Mock
                 Latitude =50.3172779486, Longitude =31.0401856899, Angle = 290,
                 Photo = @"https://photoreports.com.ua/photo/pictures/a040d310-3621-45ac-b72d-840c9134f3ad/ae9d515f-bd0b-429f-bb53-4b857bfbdc78.jpg",
                 Condition = Common.Enums.BoardCondition.Free,
-                IconStyle = Common.Enums.IconStyle.Drop,
-                IconColor = "177aeb",
+                IconStyle = Common.Enums.IconStyle.House,
+                IconColor = "33eb17",
                 Price = 20000,
             },
             new BoardDto {
@@ -77,7 +77,7 @@ namespace OohelpWebApps.Presentations.Domain.Repositories.Mock
                 Photo = @"https://photoreports.com.ua/photo/pictures/a040d310-3621-45ac-b72d-840c9134f3ad/c5251675-fda1-4916-92fd-7b52acfa579b.jpg",
                 Condition = Common.Enums.BoardCondition.Free,
                 IconStyle = Common.Enums.IconStyle.Arrow,
-                IconColor = "17eb1b",
+                IconColor = "f50521",
                 Price = 20000,
             }
         };

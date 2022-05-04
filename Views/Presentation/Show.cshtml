@@ -1,4 +1,6 @@
-﻿@{
+﻿@using System.Text.Json
+@using System.Text.Encodings.Web
+@{
     Layout = null;    
 }
 @model PresentationViewModel
@@ -13,7 +15,8 @@
 
 <body>
     <script type="text/javascript">
-        var markers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Boards));
+        var markers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Boards, 
+            new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
     </script>
 
 
