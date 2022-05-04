@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OohelpWebApps.Presentations.Models;
 using OohelpWebApps.Presentations.Services;
+using System.Diagnostics;
 
 namespace OohelpWebApps.Presentations.Controllers
 {
@@ -13,16 +14,20 @@ namespace OohelpWebApps.Presentations.Controllers
             _logger = logger;
             _presentationService = presentationService;
         }
-        public async Task<IActionResult> Index(string id)
-        {            
-            if (string.IsNullOrEmpty(id))
+        public async Task<IActionResult> Show(string id)
+        {
+            Guid guidId;
+            if (!Helpers.Guider.TryToGuidFromString(id, out guidId, out _))
                 return NotFound();
 
-            var model = await _presentationService.GetPresentationAsync(Guid.NewGuid());
+            var model = await _presentationService.GetPresentationAsync(guidId);
+
+            if(model == null) return NotFound();
+
             return View(model);
         }
-        
-        
+
+
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
