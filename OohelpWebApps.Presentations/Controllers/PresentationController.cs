@@ -20,7 +20,7 @@ namespace OohelpWebApps.Presentations.Controllers
             if (!Helpers.Guider.TryToGuidFromString(id, out guidId, out _))
                 return NotFound();
 
-            var model = await _presentationService.GetPresentationAsync(guidId);
+            var model = await _presentationService.GetPresentationViewModelAsync(guidId);
 
             if(model == null) return NotFound();
 

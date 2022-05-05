@@ -1,8 +1,9 @@
-﻿using OohelpWebApps.Presentations.Domain;
+﻿using OohelpWebApps.Presentations.Api.Contracts.Common.Interfaces;
+using OohelpWebApps.Presentations.Domain;
 
-namespace OohelpWebApps.Presentations.api.Contracts.Requests;
+namespace OohelpWebApps.Presentations.Api.Contracts.Requests;
 
-public class UpdatePresentationRequest : Interfaces.IRequest
+public class UpdatePresentationRequest : IRequest
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

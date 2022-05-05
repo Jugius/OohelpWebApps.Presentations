@@ -1,6 +1,8 @@
-﻿namespace OohelpWebApps.Presentations.api.Contracts.Requests;
+﻿using OohelpWebApps.Presentations.Api.Contracts.Common.Interfaces;
 
-public class GetAllPresentationsRequest : Interfaces.IRequest
+namespace OohelpWebApps.Presentations.Api.Contracts.Requests;
+
+public class GetAllPresentationsRequest : IRequest
 {
     public string Key { get; set; }
 }

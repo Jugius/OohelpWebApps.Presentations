@@ -1,20 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OohelpWebApps.Presentations.Api.Contracts.Requests;
+using OohelpWebApps.Presentations.Api.Contracts.Responses;
+using OohelpWebApps.Presentations.Services;
 
-namespace OohelpWebApps.Presentations.api.Controllers
+namespace OohelpWebApps.Presentations.Api.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class PresentationsController : Controller
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PresentationsController : Controller
+    public PresentationsController(PresentationService presentationService)
     {
-        [HttpGet]
-        public async Task<ActionResult> Get()
-        {            
-            return Json(new { Status = "Ok"});
-        }
+        _presentationService = presentationService;
+    }
+    private readonly PresentationService _presentationService;
+    [HttpPost]
+    public async Task<ActionResult> GetAll(GetAllPresentationsRequest request)
+    {
+        Guid guidId;
+        if (!Helpers.Guider.TryToGuidFromString(request.Key, out guidId, out _))
+            return Ok(new { Status = Contracts.Common.Enums.Status.InvalidRequest });
+
+        var response = new GetAllPresentationsResponse 
+        {
+            Presentations = await _presentationService.GetPresentationsAsync(Guid.NewGuid()),
+            Status = Contracts.Common.Enums.Status.Ok
+        };
+        return Ok(response);
     }
 }

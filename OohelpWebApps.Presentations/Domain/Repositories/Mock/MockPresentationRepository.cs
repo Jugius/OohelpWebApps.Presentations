@@ -16,16 +16,18 @@ namespace OohelpWebApps.Presentations.Domain.Repositories.Mock
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<PresentationDto>> GetAllAsync()
+        public async Task<IEnumerable<PresentationDto>> GetAllAsync(Guid ownerId)
         {
-            throw new NotImplementedException();
+            var presa = await GetAsync(Guid.NewGuid());
+            presa.Owner = ownerId;
+            return new [] { presa };
         }
 
         public Task<PresentationDto> GetAsync(Guid id)
         {
             var presa = new PresentationDto
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 Boards = InitializeBoards().ToList(),
                 Description = "Май-июль 2022, Арки на трассах",
                 Name = "Большие форматы на весну!",

@@ -12,7 +12,7 @@ public class PresentationService
         _clientService = clientService;
     }
 
-    public async Task<Models.PresentationViewModel?> GetPresentationAsync(Guid presentationId)
+    public async Task<Models.PresentationViewModel?> GetPresentationViewModelAsync(Guid presentationId)
     { 
         var presentationDto = await _presentationRepository.GetAsync(presentationId);
         if(presentationDto == null) return null;
@@ -22,5 +22,11 @@ public class PresentationService
             result.ClientInfo = await _clientService.GetClientInfo(presentationDto.Owner);
         }
         return result;
-    }        
+    }
+    public async Task<Domain.Presentation[]> GetPresentationsAsync(Guid ownerId)
+    { 
+        var presentationDtos = await _presentationRepository.GetAllAsync(ownerId);
+        var presentations = presentationDtos.Select(a => a.ToPresentationDomain()).ToArray();
+        return presentations;
+    }
 }
