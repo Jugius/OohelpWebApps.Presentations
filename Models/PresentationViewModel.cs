@@ -2,10 +2,10 @@
 {
     public class PresentationViewModel
     {
-        public string ClientName { get; set; }
-        public Guid Id { get; set; }
+        public ClientInfoViewModel ClientInfo { get; set; }
         public BoardViewModel[] Boards { get; set; }
-                
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 
 }

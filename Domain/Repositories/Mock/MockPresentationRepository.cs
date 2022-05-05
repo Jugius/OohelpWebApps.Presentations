@@ -2,7 +2,7 @@
 
 namespace OohelpWebApps.Presentations.Domain.Repositories.Mock
 {
-    public class PresentationRepository : Interfaces.IPresentationRepository
+    public class MockPresentationRepository : Interfaces.IPresentationRepository
     {
         public IQueryable<PresentationDto> Presentations => throw new NotImplementedException();
 
@@ -25,12 +25,12 @@ namespace OohelpWebApps.Presentations.Domain.Repositories.Mock
         {
             var presa = new PresentationDto
             {
-                ClientName = "Ad Strategy",
                 Id = Guid.NewGuid(),
                 Boards = InitializeBoards().ToList(),
                 Description = "Май-июль 2022, Арки на трассах",
                 Name = "Большие форматы на весну!",
-                ShowLogo = true
+                Owner = Guid.NewGuid(),
+                ShowOwner = true
             };
             return Task.FromResult(presa);
         }

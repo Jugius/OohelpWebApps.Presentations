@@ -18,9 +18,9 @@ namespace OohelpWebApps.Presentations.Mapping
         {
             return new Models.PresentationViewModel
             {
-                Id = dto.Id,
-                ClientName = dto.ClientName,
-                Boards = dto.Boards.Select(a => a.ToBoardViewModel()).ToArray()
+                Boards = dto.Boards.Select(a => a.ToBoardViewModel()).ToArray(),
+                Name = dto.Name,
+                Description = dto.Description
             };
         }
         public static Models.BoardViewModel ToBoardViewModel(this Domain.Data.BoardDto dto)

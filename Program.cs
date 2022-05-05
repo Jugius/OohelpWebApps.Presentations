@@ -30,7 +30,8 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
-builder.Services.AddTransient<IPresentationRepository, PresentationRepository>();
+builder.Services.AddTransient<IPresentationRepository, MockPresentationRepository>();
+builder.Services.AddSingleton<ClientService>();
 builder.Services.AddSingleton<PresentationService>();
 
 var app = builder.Build();
