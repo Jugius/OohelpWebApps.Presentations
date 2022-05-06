@@ -5,4 +5,5 @@ namespace OohelpWebApps.Presentations.Api.Contracts.Requests;
 public class GetAllPresentationsRequest : IRequest
 {
     public string Key { get; set; }
+    public bool ShowOwnOnly { get; set; }
 }

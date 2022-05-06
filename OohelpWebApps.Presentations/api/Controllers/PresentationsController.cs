@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OohelpWebApps.Presentations.Api.Contracts.Requests;
 using OohelpWebApps.Presentations.Api.Contracts.Responses;
+using OohelpWebApps.Presentations.Mapping;
 using OohelpWebApps.Presentations.Services;
 
 namespace OohelpWebApps.Presentations.Api.Controllers;
@@ -14,18 +15,37 @@ public class PresentationsController : Controller
         _presentationService = presentationService;
     }
     private readonly PresentationService _presentationService;
-    [HttpPost]
+
+    [HttpPost("GetAll")]
     public async Task<ActionResult> GetAll(GetAllPresentationsRequest request)
     {
         Guid guidId;
         if (!Helpers.Guider.TryToGuidFromString(request.Key, out guidId, out _))
             return Ok(new { Status = Contracts.Common.Enums.Status.InvalidRequest });
 
+        var result = await _presentationService.GetPresentationsByOwnerAsync(Guid.NewGuid());
+        if(result == null || result.Length == 0)
+            return Ok(new { Status = Contracts.Common.Enums.Status.NotFound });
+
         var response = new GetAllPresentationsResponse 
         {
-            Presentations = await _presentationService.GetPresentationsAsync(Guid.NewGuid()),
+            Presentations = result,
             Status = Contracts.Common.Enums.Status.Ok
         };
         return Ok(response);
+    }
+
+    [HttpPost("Create")]
+    public async Task<ActionResult> Create(CreatePresentationRequest request)
+    {
+        Guid guidId;
+        if (!Helpers.Guider.TryToGuidFromString(request.Key, out guidId, out _))
+            return Ok(new { Status = Contracts.Common.Enums.Status.InvalidRequest });
+
+        var conPres = request.ToPresentationDomain();
+        Domain.Presentation result = await _presentationService.Create(conPres);
+
+
+        
     }
 }

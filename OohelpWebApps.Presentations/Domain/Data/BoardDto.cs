@@ -72,4 +72,5 @@ public class BoardDto
 
 
     public Guid PresentationId { get; set; }
+    public PresentationDto Presentation { get; set; }
 }

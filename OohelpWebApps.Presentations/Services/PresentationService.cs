@@ -1,4 +1,5 @@
-﻿using OohelpWebApps.Presentations.Mapping;
+﻿using OohelpWebApps.Presentations.Api.ClientService;
+using OohelpWebApps.Presentations.Mapping;
 
 namespace OohelpWebApps.Presentations.Services;
 
@@ -23,10 +24,17 @@ public class PresentationService
         }
         return result;
     }
-    public async Task<Domain.Presentation[]> GetPresentationsAsync(Guid ownerId)
+    public async Task<Domain.Presentation[]> GetPresentationsByOwnerAsync(Guid ownerId)
     { 
         var presentationDtos = await _presentationRepository.GetAllAsync(ownerId);
         var presentations = presentationDtos.Select(a => a.ToPresentationDomain()).ToArray();
         return presentations;
+    }
+    public async Task<Domain.Presentation> CreatePresentation(Domain.Presentation presentation, User user)
+    { 
+        var dto = presentation.ToPresentationDto();
+        dto.Owner = user.Id;
+        await _presentationRepository.CreateAsync(dto);
+        return dto.ToPresentationDomain();
     }
 }
