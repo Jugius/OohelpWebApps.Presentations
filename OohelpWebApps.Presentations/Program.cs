@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OohelpWebApps.Presentations;
 using OohelpWebApps.Presentations.Domain;
+using OohelpWebApps.Presentations.Domain.Authentication;
 using OohelpWebApps.Presentations.Domain.Repositories.Interfaces;
 using OohelpWebApps.Presentations.Domain.Repositories.Mock;
 using OohelpWebApps.Presentations.Services;
@@ -31,7 +32,7 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 });
 
 builder.Services.AddTransient<IPresentationRepository, MockPresentationRepository>();
-builder.Services.AddSingleton<ClientService>();
+builder.Services.AddSingleton<InMemoryUsersRepository>();
 builder.Services.AddSingleton<PresentationService>();
 
 var app = builder.Build();

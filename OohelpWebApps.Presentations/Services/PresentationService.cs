@@ -1,4 +1,4 @@
-﻿using OohelpWebApps.Presentations.Api.ClientService;
+﻿using OohelpWebApps.Presentations.Domain.Authentication;
 using OohelpWebApps.Presentations.Mapping;
 
 namespace OohelpWebApps.Presentations.Services;
@@ -6,11 +6,11 @@ namespace OohelpWebApps.Presentations.Services;
 public class PresentationService
 {
     private readonly Domain.Repositories.Interfaces.IPresentationRepository _presentationRepository;
-    private readonly ClientService _clientService;
-    public PresentationService(Domain.Repositories.Interfaces.IPresentationRepository presentationRepository, ClientService clientService)
+    private readonly InMemoryUsersRepository _usersRepository;
+    public PresentationService(Domain.Repositories.Interfaces.IPresentationRepository presentationRepository, InMemoryUsersRepository clientService)
     {
         _presentationRepository = presentationRepository;
-        _clientService = clientService;
+        _usersRepository = clientService;
     }
 
     public async Task<Models.PresentationViewModel?> GetPresentationViewModelAsync(Guid presentationId)
@@ -20,7 +20,9 @@ public class PresentationService
         var result = presentationDto?.ToPresentationViewModel();
         if (presentationDto.ShowOwner)
         {
-            result.ClientInfo = await _clientService.GetClientInfo(presentationDto.Owner);
+            var company = _usersRepository.GetUserById(presentationDto.Owner).Company;
+            if(company != null)
+                result.ClientInfo = new Models.ClientInfoViewModel { Logo = company.Id + ".png", Name = company.Name };
         }
         return result;
     }
@@ -30,10 +32,9 @@ public class PresentationService
         var presentations = presentationDtos.Select(a => a.ToPresentationDomain()).ToArray();
         return presentations;
     }
-    public async Task<Domain.Presentation> CreatePresentation(Domain.Presentation presentation, User user)
+    public async Task<Domain.Presentation> CreatePresentation(Domain.Presentation presentation)
     { 
-        var dto = presentation.ToPresentationDto();
-        dto.Owner = user.Id;
+        var dto = presentation.ToPresentationDto();        
         await _presentationRepository.CreateAsync(dto);
         return dto.ToPresentationDomain();
     }

@@ -1,4 +1,7 @@
 ﻿
+using OohelpWebApps.Presentations.Domain.Authentication;
+using System.Text.Json.Serialization;
+
 namespace OohelpWebApps.Presentations.Domain;
 
 public class Presentation
@@ -7,5 +10,10 @@ public class Presentation
     public string Name { get; set; }
     public string Description { get; set; }    
     public bool ShowOwnerInfo { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public string CreatedBy => Owner.Username;
+
+    [JsonIgnore]
+    public User Owner { get; set; }
     public List<Board> Boards { get; set; }
 }
