@@ -26,11 +26,13 @@ public class PresentationService
         }
         return result;
     }
-    public async Task<Domain.Presentation[]> GetPresentationsByOwnerAsync(Guid ownerId)
+    public async Task<Domain.Presentation[]> GetPresentationsByOwnerAsync(User user)
     { 
-        var presentationDtos = await _presentationRepository.GetAllAsync(ownerId);
-        var presentations = presentationDtos.Select(a => a.ToPresentationDomain()).ToArray();
-        return presentations;
+        var presentationDtos = await _presentationRepository.GetAllAsync(user.Id);
+        var presentations = presentationDtos.Select(a => a.ToPresentationDomain()).ToArray(); 
+        foreach (var presentation in presentations)
+            presentation.Owner = user;
+        return presentations.ToArray();
     }
     public async Task<Domain.Presentation> CreatePresentation(Domain.Presentation presentation)
     { 

@@ -23,19 +23,31 @@ public class PresentationsController : Controller
     [HttpPost("GetAll")]
     public async Task<ActionResult> GetAll(GetAllPresentationsRequest request)
     {
-        Guid guidId;
-        if (!Helpers.Guider.TryToGuidFromString(request.Key, out guidId, out _))
-            return Ok(new { Status = Contracts.Common.Enums.Status.InvalidRequest });
-
-        var result = await _presentationService.GetPresentationsByOwnerAsync(Guid.NewGuid());
-        if(result == null || result.Length == 0)
-            return Ok(new { Status = Contracts.Common.Enums.Status.NotFound });
-
-        return Ok(new GetAllPresentationsResponse
+        try
         {
-            Presentations = result,
-            Status = Contracts.Common.Enums.Status.Ok
-        });
+            var user = _usersRepository.Authenticate(request.Key);
+            if (user == null || !user.HasPermission(Permission.CreateNewPresentation))
+                return Ok(new { Status = Contracts.Common.Enums.Status.RequestDenied });
+
+            var result = await _presentationService.GetPresentationsByOwnerAsync(user);
+            if (result == null || result.Length == 0)
+                return Ok(new { Status = Contracts.Common.Enums.Status.NotFound });
+
+            return Ok(new GetAllPresentationsResponse
+            {
+                Presentations = result,
+                Status = Contracts.Common.Enums.Status.Ok
+            });
+
+        }
+        catch (ApiException apex)
+        {
+            return Ok(new { Status = apex.Status });
+        }
+        catch (Exception ex)
+        {
+            return Ok(new { Status = Contracts.Common.Enums.Status.UnknownError, Error = ex.Message });
+        }
     }
 
     [HttpPost("Create")]

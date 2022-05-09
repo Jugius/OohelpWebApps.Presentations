@@ -30,8 +30,8 @@ namespace OohelpWebApps.Presentations.Domain.Repositories.Mock
                 Id = id,
                 Boards = InitializeBoards().ToList(),
                 Description = "Май-июль 2022, Арки на трассах",
-                Name = "Большие форматы на весну!",
-                Owner = Guid.NewGuid(),
+                Name = "Adama, май-июль",
+                Owner = new Guid("a0db9f7a-711a-49fc-aaff-477be95abdcb"),
                 ShowOwner = true
             };
             return Task.FromResult(presa);
