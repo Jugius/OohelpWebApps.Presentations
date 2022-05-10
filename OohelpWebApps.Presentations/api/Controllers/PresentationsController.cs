@@ -23,19 +23,26 @@ public class PresentationsController : Controller
     [HttpPost("GetAll")]
     public async Task<ActionResult> GetAll(GetAllPresentationsRequest request)
     {
-        Guid guidId;
-        if (!Helpers.Guider.TryToGuidFromString(request.Key, out guidId, out _))
-            return Ok(new { Status = Contracts.Common.Enums.Status.InvalidRequest });
-
-        var result = await _presentationService.GetPresentationsByOwnerAsync(Guid.NewGuid());
-        if(result == null || result.Length == 0)
-            return Ok(new { Status = Contracts.Common.Enums.Status.NotFound });
-
-        return Ok(new GetAllPresentationsResponse
+        try
         {
-            Presentations = result,
-            Status = Contracts.Common.Enums.Status.Ok
-        });
+            var user = _usersRepository.Authenticate(request.Key);
+            if (user == null)
+                return Ok(new { Status = Contracts.Common.Enums.Status.RequestDenied });
+
+            var result = await _presentationService.GetPresentationsByOwnerAsync(user.Id);
+            if (result == null || result.Length == 0)
+                return Ok(new { Status = Contracts.Common.Enums.Status.NotFound });
+
+            return Ok(new GetAllPresentationsResponse
+            {
+                Presentations = result,
+                Status = Contracts.Common.Enums.Status.Ok
+            });
+        }
+        catch (ApiException apex)
+        {
+            return Ok(new { Status = apex.Status });
+        }  
     }
 
     [HttpPost("Create")]
@@ -49,11 +56,15 @@ public class PresentationsController : Controller
 
             var conPres = request.ToPresentationDomain();
             conPres.Owner = user;
-            Domain.Presentation result = await _presentationService.CreatePresentation(conPres);
+            conPres.CreatedAt = DateTime.UtcNow;
+            conPres = await _presentationService.CreatePresentation(conPres);
+
+            if (conPres.Boards.Count == 0)
+                conPres.Boards = null;
             
             return Ok(new CreatePresentationResponse
             {
-                Presentation = result,
+                Presentation = conPres,
                 Status = Contracts.Common.Enums.Status.Ok
             });
         }

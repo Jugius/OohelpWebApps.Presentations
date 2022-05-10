@@ -29,13 +29,13 @@ public class PresentationService
     public async Task<Domain.Presentation[]> GetPresentationsByOwnerAsync(Guid ownerId)
     { 
         var presentationDtos = await _presentationRepository.GetAllAsync(ownerId);
-        var presentations = presentationDtos.Select(a => a.ToPresentationDomain()).ToArray();
+        var presentations = presentationDtos.Select(a => a.ToPresentationDomain(_usersRepository.GetUserById(a.Owner))).ToArray();
         return presentations;
     }
     public async Task<Domain.Presentation> CreatePresentation(Domain.Presentation presentation)
-    { 
-        var dto = presentation.ToPresentationDto();        
-        await _presentationRepository.CreateAsync(dto);
-        return dto.ToPresentationDomain();
+    {
+        var dto = await _presentationRepository.CreateAsync(presentation.ToPresentationDto());
+        var user = _usersRepository.GetUserById(dto.Owner);
+        return dto.ToPresentationDomain(user);
     }
 }

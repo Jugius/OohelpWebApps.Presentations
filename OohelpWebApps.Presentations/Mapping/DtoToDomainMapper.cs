@@ -1,4 +1,6 @@
 ﻿
+using OohelpWebApps.Presentations.Domain.Authentication;
+
 namespace OohelpWebApps.Presentations.Mapping;
 
 public static class DtoToDomainMapper
@@ -10,8 +12,16 @@ public static class DtoToDomainMapper
             Id = dto.Id,
             Name = dto.Name,
             Description = dto.Description,
+            CreatedAt = dto.Created,
+            ShowOwnerInfo = dto.ShowOwner,             
             Boards = dto.Boards.Select(a => a.ToBoardDomain()).ToList(),
         };
+    }
+    public static Domain.Presentation ToPresentationDomain(this Domain.Data.PresentationDto dto, User user)
+    {
+        var result = dto.ToPresentationDomain();
+        result.Owner = user;
+        return result;
     }
 
     public static Domain.Board ToBoardDomain(this Domain.Data.BoardDto dto)

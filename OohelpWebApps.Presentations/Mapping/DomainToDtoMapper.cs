@@ -11,8 +11,9 @@ public static class DomainToDtoMapper
             Id = pr.Id,
             Name = pr.Name,
             Description = pr.Description,
+            Created = pr.CreatedAt,
             Owner = pr.Owner.Id,
-            ShowOwner = pr.ShowOwnerInfo,
+            ShowOwner = pr.ShowOwnerInfo,            
             Boards = pr.Boards.Select(a => a.ToBoardDto()).ToList(),
         };
     }

@@ -11,7 +11,7 @@ namespace OohelpWebApps.Presentations.Mapping
                 Name = request.Name,
                 Description = request.Description,
                 ShowOwnerInfo = request.ShowOwner,
-                Boards = request.Boards
+                Boards = request.Boards?.ToList() ?? new List<Domain.Board>()
             };
         }
     }

@@ -17,9 +17,8 @@ namespace OohelpWebApps.Presentations.Domain.Data
 
         [Required]
         public Guid Owner { get; set; }
-
-        public bool ShowOwner { get; set; }        
-
+        public DateTime Created { get; set; }
+        public bool ShowOwner { get; set; }
         public List<BoardDto> Boards { get; set; }
     }
 }
