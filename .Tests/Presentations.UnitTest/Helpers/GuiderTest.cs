@@ -61,9 +61,8 @@ namespace Presentations.UnitTest.Helpers
         }
         [Fact]
         public void EmptyStringToGuid_Throws()
-        {
-            string wrongStr = "";
-            Assert.Throws<System.IndexOutOfRangeException>(() => { System.Guid guidBack = Guider.ToGuidFromString(wrongStr); });
+        {            
+            Assert.Throws<System.IndexOutOfRangeException>(() => { System.Guid guidBack = Guider.ToGuidFromString(string.Empty); });
         }
         [Fact]
         public void NullStringToGuid_Throws()

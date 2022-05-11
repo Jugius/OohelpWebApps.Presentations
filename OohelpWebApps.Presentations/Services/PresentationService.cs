@@ -13,14 +13,14 @@ public class PresentationService
         _usersRepository = clientService;
     }
 
-    public async Task<Models.PresentationViewModel?> GetPresentationViewModelAsync(Guid presentationId)
+    public async Task<Models.PresentationViewModel> GetPresentationViewModelAsync(Guid presentationId)
     { 
         var presentationDto = await _presentationRepository.GetAsync(presentationId);
         if(presentationDto == null) return null;
         var result = presentationDto?.ToPresentationViewModel();
         if (presentationDto.ShowOwner)
         {
-            var company = _usersRepository.GetUserById(presentationDto.Owner).Company;
+            var company = _usersRepository.GetUserById(presentationDto.OwnerId).Company;
             if(company != null)
                 result.ClientInfo = new Models.ClientInfoViewModel { Logo = company.Id + ".png", Name = company.Name };
         }
@@ -29,15 +29,13 @@ public class PresentationService
     public async Task<Domain.Presentation[]> GetPresentationsByOwnerAsync(User user)
     { 
         var presentationDtos = await _presentationRepository.GetAllAsync(user.Id);
-        var presentations = presentationDtos.Select(a => a.ToPresentationDomain()).ToArray(); 
-        foreach (var presentation in presentations)
-            presentation.Owner = user;
-        return presentations.ToArray();
+        return presentationDtos.Select(a => a.ToPresentationDomain(user)).ToArray(); 
     }
     public async Task<Domain.Presentation> CreatePresentation(Domain.Presentation presentation)
     { 
         var dto = presentation.ToPresentationDto();        
         await _presentationRepository.CreateAsync(dto);
-        return dto.ToPresentationDomain();
+        var res = dto.ToPresentationDomain(presentation.Owner);
+        return res;
     }
 }

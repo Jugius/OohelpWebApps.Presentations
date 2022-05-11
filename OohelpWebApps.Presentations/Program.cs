@@ -3,7 +3,7 @@ using OohelpWebApps.Presentations;
 using OohelpWebApps.Presentations.Domain;
 using OohelpWebApps.Presentations.Domain.Authentication;
 using OohelpWebApps.Presentations.Domain.Repositories.Interfaces;
-using OohelpWebApps.Presentations.Domain.Repositories.Mock;
+using OohelpWebApps.Presentations.Domain.Repositories.EntityFramework;
 using OohelpWebApps.Presentations.Services;
 using System.Text.Json.Serialization;
 
@@ -31,9 +31,9 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
-builder.Services.AddTransient<IPresentationRepository, MockPresentationRepository>();
-builder.Services.AddSingleton<InMemoryUsersRepository>();
-builder.Services.AddSingleton<PresentationService>();
+builder.Services.AddScoped<IPresentationRepository, EFPresentationRepository>();
+builder.Services.AddScoped<InMemoryUsersRepository>();
+builder.Services.AddScoped<PresentationService>();
 
 var app = builder.Build();
 

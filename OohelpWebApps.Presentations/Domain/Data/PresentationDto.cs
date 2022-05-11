@@ -11,12 +11,12 @@ namespace OohelpWebApps.Presentations.Domain.Data
         [MaxLength(128)]
         public string Name { get; set; }
 
-
         [MaxLength(256)]
         public string? Description { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [Required]
-        public Guid Owner { get; set; }
+        public Guid OwnerId { get; set; }
 
         public bool ShowOwner { get; set; }        
 

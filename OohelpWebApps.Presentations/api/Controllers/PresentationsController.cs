@@ -3,7 +3,6 @@ using OohelpWebApps.Presentations.Api.Contracts.Requests;
 using OohelpWebApps.Presentations.Api.Contracts.Responses;
 using OohelpWebApps.Presentations.Api.Exceptions;
 using OohelpWebApps.Presentations.Domain.Authentication;
-using OohelpWebApps.Presentations.Mapping;
 using OohelpWebApps.Presentations.Services;
 
 namespace OohelpWebApps.Presentations.Api.Controllers;
@@ -26,7 +25,7 @@ public class PresentationsController : Controller
         try
         {
             var user = _usersRepository.Authenticate(request.Key);
-            if (user == null || !user.HasPermission(Permission.CreateNewPresentation))
+            if (user == null)
                 return Ok(new { Status = Contracts.Common.Enums.Status.RequestDenied });
 
             var result = await _presentationService.GetPresentationsByOwnerAsync(user);
@@ -46,7 +45,7 @@ public class PresentationsController : Controller
         }
         catch (Exception ex)
         {
-            return Ok(new { Status = Contracts.Common.Enums.Status.UnknownError, Error = ex.Message });
+            return Ok(new { Status = Contracts.Common.Enums.Status.UnknownError, ErrorMessage = ex.Message });
         }
     }
 
@@ -59,13 +58,22 @@ public class PresentationsController : Controller
             if (user == null || !user.HasPermission(Permission.CreateNewPresentation))
                 return Ok(new { Status = Contracts.Common.Enums.Status.RequestDenied });
 
-            var conPres = request.ToPresentationDomain();
-            conPres.Owner = user;
-            Domain.Presentation result = await _presentationService.CreatePresentation(conPres);
+
+            var conPres = new Domain.Presentation
+            {
+                Name = request.Name,
+                Description = request.Description,
+                CreatedAt = DateTime.Now,
+                Owner = user,
+                Boards = request.Boards,
+                ShowOwnerInfo = request.ShowOwner
+            };
+
+            conPres = await _presentationService.CreatePresentation(conPres);
             
             return Ok(new CreatePresentationResponse
             {
-                Presentation = result,
+                Presentation = conPres,
                 Status = Contracts.Common.Enums.Status.Ok
             });
         }
@@ -73,12 +81,9 @@ public class PresentationsController : Controller
         {
             return Ok(new { Status = apex.Status });
         }
-        
-
-        
-        
-
-
-        
+        catch (Exception ex)
+        {
+            return Ok(new { Status = Contracts.Common.Enums.Status.UnknownError, ErrorMessage = ex.Message });
+        }
     }
 }

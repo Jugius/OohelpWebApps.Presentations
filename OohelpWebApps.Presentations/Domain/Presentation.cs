@@ -11,7 +11,7 @@ public class Presentation
     public string Description { get; set; }    
     public bool ShowOwnerInfo { get; set; }
     public DateTime CreatedAt { get; set; }
-    public string CreatedBy => Owner.Username;
+    public string CreatedBy => Owner?.Username;
 
     [JsonIgnore]
     public User Owner { get; set; }
