@@ -3,9 +3,8 @@ using OohelpWebApps.Presentations.Domain;
 
 namespace OohelpWebApps.Presentations.Api.Contracts.Responses
 {
-    public class CreatePresentationResponse
+    public class PresentationResponse : BaseResponse
     {
-        public Presentation Presentation { get; set; }
-        public Status Status { get; set; }
+        public Presentation Presentation { get; set; }        
     }
 }
