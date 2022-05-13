@@ -2,9 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using OohelpWebApps.Presentations;
 using OohelpWebApps.Presentations.Domain;
 using OohelpWebApps.Presentations.Domain.Authentication;
-using OohelpWebApps.Presentations.Domain.Repositories.Interfaces;
-using OohelpWebApps.Presentations.Domain.Repositories.EntityFramework;
-using OohelpWebApps.Presentations.Services;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,9 +28,7 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
-builder.Services.AddScoped<IPresentationRepository, EFPresentationRepository>();
 builder.Services.AddScoped<InMemoryUsersRepository>();
-builder.Services.AddScoped<PresentationService>();
 
 var app = builder.Build();
 
@@ -50,7 +45,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

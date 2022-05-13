@@ -15,7 +15,7 @@ namespace Presentations.UnitTest.Helpers
         [Fact]
         public void GuidToStringToGuid_ReturnEqual()
         {
-            var guid = new System.Guid("c1825b6f-2a5b-41f8-8c6e-272b6fdc1566");
+            var guid = new System.Guid("3d74d23c-cf2f-4ba1-6845-08da334e7650");
             output.WriteLine(guid.ToString());
 
             string guidStr = Guider.ToStringFromGuid(guid);

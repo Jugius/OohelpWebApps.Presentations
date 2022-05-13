@@ -5,7 +5,7 @@ using OohelpWebApps.Presentations.Api.Contracts.Responses;
 using OohelpWebApps.Presentations.Api.Exceptions;
 using OohelpWebApps.Presentations.Domain;
 using OohelpWebApps.Presentations.Domain.Authentication;
-using OohelpWebApps.Presentations.Mapping;
+using OohelpWebApps.Presentations.Api.Mappers;
 
 namespace OohelpWebApps.Presentations.Api.Controllers;
 
@@ -36,7 +36,7 @@ public class PresentationsController : Controller
 
             return Ok(new PresentationsResponse
             {
-                Presentations = result.Select(a => a.ToPresentationDomain(user)).ToArray(),
+                Presentations = result.Select(a => a.ToContract(user)).ToArray(),
                 Status = Contracts.Common.Enums.Status.Ok
             });
 
@@ -52,7 +52,7 @@ public class PresentationsController : Controller
     }
 
     [HttpPost("Create")]
-    public async Task<ActionResult> Create(CreatePresentationRequest request)
+    public async Task<ActionResult> Create(PresentationRequest request)
     {
         try
         {
@@ -60,22 +60,14 @@ public class PresentationsController : Controller
             if (user == null || !user.HasPermission(Permission.CreateNewPresentation))
                 return Ok(new { Status = Contracts.Common.Enums.Status.RequestDenied });
 
-            var dto = new Domain.Data.PresentationDto
-            {
-                Name = request.Name,
-                Description = request.Description,
-                CreatedAt = DateTime.Now,
-                OwnerId = user.Id,
-                Boards = request.Boards?.Select(a => a.ToBoardDto()).ToList() ?? new List<Domain.Data.BoardDto>(0),
-                ShowOwner = request.ShowOwner
-            };
+            var dto = request.Presentation.ToDto(user);
 
             this._dbContext.Presentations.Add(dto);
             await this._dbContext.SaveChangesAsync();
             
             return Ok(new PresentationResponse
             {
-                Presentation = dto.ToPresentationDomain(user),
+                Presentation = dto.ToContract(user),
                 Status = Contracts.Common.Enums.Status.Ok
             });
         }
@@ -89,7 +81,7 @@ public class PresentationsController : Controller
         }
     }
     [HttpPost("Update")]
-    public async Task<ActionResult> Update(UpdatePresentationRequest request)
+    public async Task<ActionResult> Update(PresentationRequest request)
     {
         try
         {
@@ -97,20 +89,18 @@ public class PresentationsController : Controller
             if (user == null || !user.HasPermission(Permission.UpdatePresentation))
                 return Ok(new { Status = Contracts.Common.Enums.Status.RequestDenied });
 
-            var existing = await this._dbContext.Presentations.FirstOrDefaultAsync(a=>a.Id == request.Id);
+            var existing = await this._dbContext.Presentations.FirstOrDefaultAsync(a=>a.Id == request.Presentation.Id);
 
             if(existing == null)
                 return Ok(new { Status = Contracts.Common.Enums.Status.NotFound });
 
-            existing.Name = request.Name;
-            existing.Description = request.Description;
-            existing.ShowOwner = request.ShowOwner;
+            existing.UpdateWith(request.Presentation);
 
             await this._dbContext.SaveChangesAsync();
 
             return Ok(new PresentationResponse
             {
-                Presentation = existing.ToPresentationDomain(user),
+                Presentation = existing.ToContract(user),
                 Status = Contracts.Common.Enums.Status.Ok
             });
         }

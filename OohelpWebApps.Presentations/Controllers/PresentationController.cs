@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OohelpWebApps.Presentations.Domain;
 using OohelpWebApps.Presentations.Domain.Authentication;
+using OohelpWebApps.Presentations.Mapping;
 
 namespace OohelpWebApps.Presentations.Controllers
 {
@@ -23,19 +24,15 @@ namespace OohelpWebApps.Presentations.Controllers
                 return NotFound();
 
             var presentationDto = await this._dbContext.Presentations.Where(a => a.Id == guidId).Include(a => a.Boards).FirstOrDefaultAsync();
-            if (presentationDto == null) return null;
-            var result = presentationDto?.ToPresentationViewModel();
+            if (presentationDto == null) return NotFound();
+
+            var model = presentationDto.ToPresentationViewModel();
             if (presentationDto.ShowOwner)
             {
                 var company = _usersRepository.GetUserById(presentationDto.OwnerId).Company;
                 if (company != null)
-                    result.ClientInfo = new Models.ClientInfoViewModel { Logo = company.Id + ".png", Name = company.Name };
-            }
-            return result;
-
-            var model = await _presentationService.GetPresentationViewModelAsync(guidId);
-
-            if(model == null) return NotFound();
+                    model.ClientInfo = new Models.ClientInfoViewModel { Logo = company.Id + ".png", Name = company.Name };
+            }          
 
             return View(model);
         }

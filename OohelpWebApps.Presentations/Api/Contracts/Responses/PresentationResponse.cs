@@ -1,10 +1,9 @@
-﻿using OohelpWebApps.Presentations.Api.Contracts.Common.Enums;
-using OohelpWebApps.Presentations.Domain;
+﻿using OohelpWebApps.Presentations.Api.Contracts.Common;
 
 namespace OohelpWebApps.Presentations.Api.Contracts.Responses
 {
     public class PresentationResponse : BaseResponse
     {
-        public Presentation Presentation { get; set; }        
+        public PresentationContract Presentation { get; set; }        
     }
 }
