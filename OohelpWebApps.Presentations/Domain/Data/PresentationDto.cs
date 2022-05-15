@@ -21,5 +21,6 @@ namespace OohelpWebApps.Presentations.Domain.Data
         public bool ShowOwner { get; set; }        
 
         public List<BoardDto> Boards { get; set; }
+        public List<PoiDto> Pois { get; set; }
     }
 }

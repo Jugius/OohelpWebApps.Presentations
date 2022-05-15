@@ -11,4 +11,6 @@ public class PresentationContract
     public string CreatedBy { get; init; }
 
     public BoardContract[] Boards { get; set; }
+    public PoiContract[] Pois { get; set; }
+
 }
