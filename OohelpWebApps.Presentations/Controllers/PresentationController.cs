@@ -1,18 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OohelpWebApps.Presentations.Models;
-using OohelpWebApps.Presentations.Services;
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using OohelpWebApps.Presentations.Domain;
+using OohelpWebApps.Presentations.Domain.Authentication;
+using OohelpWebApps.Presentations.Mapping;
 
 namespace OohelpWebApps.Presentations.Controllers
 {
     public class PresentationController : Controller
     {
         private readonly ILogger<PresentationController> _logger;
-        private readonly PresentationService _presentationService;
-        public PresentationController(ILogger<PresentationController> logger, PresentationService presentationService)
+        private readonly AppDbContext _dbContext;
+        private readonly InMemoryUsersRepository _usersRepository;
+        public PresentationController(ILogger<PresentationController> logger, AppDbContext dbContext, InMemoryUsersRepository usersRepository)
         {
             _logger = logger;
-            _presentationService = presentationService;
+            _dbContext = dbContext;
+            _usersRepository = usersRepository;
         }
         public async Task<IActionResult> Show(string id)
         {
@@ -20,9 +23,16 @@ namespace OohelpWebApps.Presentations.Controllers
             if (!Helpers.Guider.TryToGuidFromString(id, out guidId, out _))
                 return NotFound();
 
-            var model = await _presentationService.GetPresentationViewModelAsync(guidId);
+            var presentationDto = await this._dbContext.Presentations.Where(a => a.Id == guidId).Include(a => a.Boards).FirstOrDefaultAsync();
+            if (presentationDto == null) return NotFound();
 
-            if(model == null) return NotFound();
+            var model = presentationDto.ToPresentationViewModel();
+            if (presentationDto.ShowOwner)
+            {
+                var company = _usersRepository.GetUserById(presentationDto.OwnerId).Company;
+                if (company != null)
+                    model.ClientInfo = new Models.ClientInfoViewModel { Logo = company.Id + ".png", Name = company.Name };
+            }          
 
             return View(model);
         }
