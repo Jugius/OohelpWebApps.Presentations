@@ -3,106 +3,69 @@ html {
     font-size: 14px;
 }
 
-body {
-    margin-bottom: 60px;
-    overflow: hidden;
-}
-.table-main {
-    width: 100%;
+html, body, #map-canvas {
     height: 100%;
-    padding: 0px;
     margin: 0px;
-    border: 0px;
-    position: absolute;
+    padding: 0px;
 }
-.tableft {
-    height:100%;
-    width:30%;
-}
-.tabright {
-    height: 100%;
-    width: 60%;
-}
-#divinf {
-    width: 100%;
-    height: 100%;
-}
-
-.logo {
-    width: 100%;
-    height: 70px;    
+#panel-header {
     border-bottom: 1px solid #e6e9ed;
 }
-.logo-image {
-    float: left;   
-    margin:5px;
+#panel-left table{
+    overflow:auto;
 }
-.logo-text{
-    float:left;
-    margin:5px 0 0 25px;
-}
-.logo-creat {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    color: #d4d4d4;
-    align-content: end;
-}
-.logo-name {
+.pres-Name {
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
     color: #1774a6;
 }
 
-#tab-boards-id {
-    font-size: 11px;    
-    margin: 5px 10px 5px 0px;
-    width: 100%;
+.pres-Descript {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    color: #d4d4d4;
+    align-content: end;
 }
 
-.trcpas:hover {
+#tabBoardsId {
+    font-size: 11px;
+    margin: 5px 10px 5px 0px;
+    width:100%;
+}
+.rowPass:hover {
     background: #c6e4f5;
 }
 
-.tab-boards, .tab-boards td {
+.tabBoards, .tabBoards td {
     border: 1px #DDD solid;
     border-collapse: collapse;
     padding: 5px 5px 5px 5px;
 }
 
-.tab-boards th {
+.tabBoards th {
     border: 1px solid #d4d4d4;
     border-collapse: collapse;
     padding: 5px 5px 5px 5px;
     background-color: #1774a6;
     color: #f2f2f2;
 }
-.trcpas {
+.rowPass {
     background-color: none;
     color: #727a84;
     cursor: pointer;
 }
 
-.trcact {
+.rowAct {
     background-color: #208DC8;
     color: #FFFFFF;
     cursor: pointer;
 }
 
-
-/*Оформление информационного окна*/
-.nosinf {
+.informWindow {
     width: 490px;
     text-align: center;
 }
 
 
-
-
-#map_part {
-    width: 100%;
-    height: 100%;
-    float: left;
-    display: block;
-}

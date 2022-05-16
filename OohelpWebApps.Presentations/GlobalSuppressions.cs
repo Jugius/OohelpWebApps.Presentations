@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'")]
+[assembly: SuppressMessage("Performance", "U2U1104:Do not use composite formatting to concatenate strings")]

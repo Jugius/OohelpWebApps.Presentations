@@ -57,7 +57,7 @@ namespace OohelpWebApps.Presentations.Mapping
 
         private static string GenerateHtmlInfo(Domain.Data.BoardDto dto)
         {
-            StringBuilder sb = new StringBuilder("<div class=\"nosinf\"><strong>");
+            StringBuilder sb = new StringBuilder("<div class=\"informWindow\"><strong>");
             sb.Append(dto.Code).Append(' ').Append(dto.Type).Append(' ').Append(dto.Size);
             if (dto.Ots.HasValue) sb.Append(" OTS = ").Append(dto.Ots.Value);
             sb.Append("<img src=\"").Append(dto.Photo).Append("\" width=\"490\" height=\"340\">");

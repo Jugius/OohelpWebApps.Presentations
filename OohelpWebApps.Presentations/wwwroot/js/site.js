@@ -6,7 +6,7 @@ function initMap() {
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };    
-    googleMap = new google.maps.Map(document.getElementById("map_part"), mapOptions);
+    googleMap = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     infoWindow = new google.maps.InfoWindow();
 
     setZoom(googleMap, markers);
@@ -36,7 +36,7 @@ function setMarkers(map, markers) {
         (function (marker, data) {
             google.maps.event.addListener(marker, "click", function (e) {
                 deselectRows();
-                document.getElementById(data.Id).className = "trcact";
+                document.getElementById(data.Id).className = "rowAct";
                 infoWindow.setContent(data.InfoHtml);
                 infoWindow.open(map, marker);
             });
@@ -46,15 +46,15 @@ function setMarkers(map, markers) {
 }
 function onRowClick(x) {
     deselectRows();
-    x.className = "trcact";
+    x.className = "rowAct";
     infoWindow.setContent(markers[x.rowIndex - 1].InfoHtml);
     infoWindow.open(googleMap, googleMarkers[x.rowIndex - 1]);
     //alert("Row index is: " + x.rowIndex);
 }
 function deselectRows() {
-    var selected = document.getElementsByClassName("trcact");
+    var selected = document.getElementsByClassName("rowAct");
     for (var i = 0; i < selected.length; i++) {
-        selected[i].className = "trcpas";
+        selected[i].className = "rowPass";
 
     }
 }

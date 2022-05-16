@@ -1,5 +1,6 @@
 ﻿@using System.Text.Json
 @using System.Text.Encodings.Web
+
 @{
     Layout = null;    
 }
@@ -13,69 +14,55 @@
     @await Html.PartialAsync("ScriptsPartial")
 </head>
 
-<body>
+<body style="overflow: hidden">
     <script type="text/javascript">
         var markers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Boards, 
             new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
     </script>
 
+    <div id="panel-left" style="width: 520px; height: 100%; float: left; overflow: hidden; opacity: 1">
+        <div id="panel-header" style="width:100%; height:72px;">
+            <div id="headerLogo" style="width:100px; float:left;">
+                <a href="http://www.octagon.com.ua/"><img id="imgHeaderLogo" src="~/images/Logo_w150.png"; style="margin-left:10px; margin-top:10px;" /></a>
+            </div>
+            <div id="presInfo" style="float: right; text-align:center; margin-top:15px; margin-right:15px">
+                <span class="pres-Name">@Model.Name</span><br>
+                <span class="pres-Descript">@Model.Description</span>
+            </div>
+        </div>
 
-    <div id="container">
-        <table class="table-main">
-            <tr>
-                <td class="tableft">
-                    <div id="divinf">
-                         <div class="logo">                             
-                             <div class=logo-image>
-                                 <a href="https://www.oohelp.net/">
-                                     <img src="~/images/Logo_w150.png" alt="Oohelp.net">
-                                 </a>
-                             </div>
-
-                             <div class="logo-text">
-                                 <span class="logo-name"> @Model.Name </span>
-                                <br><span class="logo-creat">@Model.Description</span>
-                             </div>
-                        </div>
-                        <br>
-                        <form id='frm-boards'>
-                            <table id="tab-boards-id" class="tab-boards">
-                                <tr>
-                                    <th></th>
-                                    <th>Код</th>
-                                    <th>Город</th>
-                                    <th>Тип</th>
-                                    <th>Адрес</th>
-                                </tr>
-                                @foreach(var brd in Model.Boards)
-                                {
-                                    <tr id=@brd.Id class="trcpas" onclick="onRowClick(this)">
-                                        <td width=5%>
-                                            <input name="ch[]" class="checkbox" id=@brd.CheckBoxId() type="checkbox" value=@brd.SupplierCode>
-                                        </td>
-                                        <td width=10%>@brd.SupplierCode</td>
-                                        <td width=15%>@brd.City</td>
-                                        <td width=10%>@brd.TypeSize</td>
-                                        <td>@brd.Address</td>
-                                    </tr>
-                                }   
-                            </table>
-
-                        </form>
-
-
-                    </div>
-                    
-                </td>
-
-                <td class="tabright">
-                    <div id="map_part"/>
-                </td>
-
-            </tr>
-        </table>
-       
+        <form id="frmBoards" style="overflow: auto; height: calc(100vh - 72px)">
+            <br>
+            <table id="tabBoardsId" class="tabBoards">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Код</th>
+                        <th>Город</th>
+                        <th>Тип</th>
+                        <th>Адрес</th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                    @foreach(var brd in Model.Boards)
+                    {
+                        <tr id=@brd.Id class="rowPass" onclick="onRowClick(this)">
+                            <td width=5%>
+                                <input name="ch[]" class="checkbox" id=@brd.CheckBoxId() type="checkbox" value=@brd.SupplierCode>
+                            </td>
+                            <td width=10%>@brd.SupplierCode</td>
+                            <td width=15%>@brd.City</td>
+                            <td width=15%>@brd.TypeSize</td>
+                            <td>@brd.Address</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>      
     </div>
+        <div id="map-canvas" style="position:relative; overflow: hidden; background-color: seagreen">
+    </div>
+
     <script async=async defer=defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnJoPklL83K0yIO0KFlngFOzt0hOLwuVg&callback=initMap" type="text/javascript"></script>
 
 </body>
