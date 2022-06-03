@@ -1,6 +1,9 @@
 html {
+    /*font-family: Verdana;*/
     font-family: Tahoma;
-    font-size: 14px;
+    /*font-family: 'Montserrat', sans-serif;*/
+    /*font-weight: 600;*/
+    color: #606e70;
 }
 
 html, body, #map-canvas {
@@ -11,21 +14,29 @@ html, body, #map-canvas {
 #panel-header {
     border-bottom: 1px solid #e6e9ed;
 }
-#panel-left table{
+/*#panel-left table{
     overflow:auto;
+}*/
+@media only screen and (max-width: 1026px) {
+    #panel-left {
+        display: none;
+    }
 }
-.pres-Name {
+h1 {
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
-    color: #1774a6;
+    color: #092d40;
+    margin:0;
+}
+.pres-Name {
+    
 }
 
 .pres-Descript {
     font-style: normal;
-    font-weight: normal;
+    font-weight: 400;
     font-size: 12px;
-    color: #d4d4d4;
     align-content: end;
 }
 
@@ -53,7 +64,7 @@ html, body, #map-canvas {
 }
 .rowPass {
     background-color: none;
-    color: #727a84;
+    /*color: #727a84;*/
     cursor: pointer;
 }
 
@@ -63,9 +74,15 @@ html, body, #map-canvas {
     cursor: pointer;
 }
 
-.informWindow {
-    width: 490px;
+.informWindow {    
     text-align: center;
+    max-width:600px;
+}
+
+.informWindow img {
+    display: block;
+    max-height: 80%;
+    max-width:100%
 }
 
 

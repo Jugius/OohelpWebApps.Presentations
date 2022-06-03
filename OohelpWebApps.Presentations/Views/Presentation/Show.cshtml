@@ -9,9 +9,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    @*<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,600,800" rel="stylesheet">*@
     @await Html.PartialAsync("MetatagsPartial")
     @await Html.PartialAsync("CssPartial")
     @await Html.PartialAsync("ScriptsPartial")
+    
+    <title>@Model.Name</title>
 </head>
 
 <body style="overflow: hidden">
@@ -20,47 +23,64 @@
             new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
     </script>
 
-    <div id="panel-left" style="width: 520px; height: 100%; float: left; overflow: hidden; opacity: 1">
+    <div id="panel-left" style="width: 35%; height: 100%; float: left; opacity: 1">
         <div id="panel-header" style="width:100%; height:72px;">
-            <div id="headerLogo" style="width:100px; float:left;">
-                <a href="http://www.octagon.com.ua/"><img id="imgHeaderLogo" src="~/images/Logo_w150.png"; style="margin-left:10px; margin-top:10px;" /></a>
-            </div>
-            <div id="presInfo" style="float: right; text-align:center; margin-top:15px; margin-right:15px">
-                <span class="pres-Name">@Model.Name</span><br>
-                <span class="pres-Descript">@Model.Description</span>
-            </div>
+            @if (Model.ClientInfo != null)
+            {
+                <div id="headerLogo" style="width:100px; float:left;">
+                    <a href="@(Model.ClientInfo.Site ?? "http://oohelp.net")" target="_blank"><img id="imgHeaderLogo" src="~/images/AD Strategy Logo_orig_w150.png"; style="margin-left:15px; margin-top:15px;" /></a>
+                </div>   
+                <div id="presInfo" style="float: right; text-align:center; margin-top:15px; margin-right:15px">
+                    <h1>@Model.Name</h1>
+                    <span class="pres-Descript">@Model.Description</span>
+                </div>
+            }
+            else
+            {
+                <div id="presInfo" style="text-align:center; margin-top:15px; margin-right:15px">
+                    <h1>@Model.Name</h1>
+                    <span class="pres-Descript">@Model.Description</span>
+                </div>
+            }
+            
         </div>
 
-        <form id="frmBoards" style="overflow: auto; height: calc(100vh - 72px)">
+        <form id="frmBoards" style="overflow:auto; overflow-x:hidden; height: calc(100vh - 72px)">
             <br>
             <table id="tabBoardsId" class="tabBoards">
                 <thead>
                     <tr>
-                        <th></th>
+                        @*<th></th>*@
                         <th>Код</th>
+                        @if (Model.ColumnSupplier) { <th>Оператор</th> }                        
                         <th>Город</th>
                         <th>Тип</th>
                         <th>Адрес</th>
+                        @if (Model.ColumnGrp) { <th>GRP</th> }                        
+                        @if (Model.ColumnPrice) { <th>Цена</th> }                        
                     </tr>
                 </thead>
                 <tbody>                    
                     @foreach(var brd in Model.Boards)
                     {
                         <tr id=@brd.Id class="rowPass" onclick="onRowClick(this)">
-                            <td width=5%>
+                           @* <td width=5%>
                                 <input name="ch[]" class="checkbox" id=@brd.CheckBoxId() type="checkbox" value=@brd.SupplierCode>
-                            </td>
+                            </td>*@
                             <td width=10%>@brd.SupplierCode</td>
+                            @if (Model.ColumnSupplier) { <td width=10%>@brd.Supplier</td>}                        
                             <td width=15%>@brd.City</td>
-                            <td width=15%>@brd.TypeSize</td>
+                            <td width=12%>@brd.TypeSize</td>
                             <td>@brd.Address</td>
+                            @if (Model.ColumnGrp) { <td width=5%>@brd.Grp</td> }                        
+                            @if (Model.ColumnPrice) { <td width=5%>@brd.Price</td> }           
                         </tr>
                     }
                 </tbody>
             </table>
         </form>      
     </div>
-        <div id="map-canvas" style="position:relative; overflow: hidden; background-color: seagreen">
+        <div id="map-canvas" style="position:relative; overflow: hidden">
     </div>
 
     <script async=async defer=defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnJoPklL83K0yIO0KFlngFOzt0hOLwuVg&callback=initMap" type="text/javascript"></script>

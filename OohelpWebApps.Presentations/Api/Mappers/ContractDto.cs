@@ -15,6 +15,18 @@ public static class ContractDto
         OwnerId = createdByUser.Id,
         ShowOwner = pr.ShowOwnerInfo,
 
+        ColumnSupplier = pr.ColumnSupplier,
+        ColumnPrice = pr.ColumnPrice,
+        ColumnGrp = pr.ColumnGrp,
+        ColumnCondition = pr.ColumnCondition,
+
+        CardCode = pr.CardCode,
+        CardMedia = pr.CardMedia,
+        CardType = pr.CardType,
+        CardPrice = pr.CardPrice,
+        CardSide = pr.CardSide,
+        CardSupplier = pr.CardSupplier,
+
         Boards = pr.Boards?.Select(a => a.ToDto()).ToList() ?? new List<BoardDto>(),
         Pois = pr.Pois?.Select(a => a.ToDto()).ToList() ?? new List<PoiDto>()
     };
@@ -27,6 +39,19 @@ public static class ContractDto
         CreatedAt = dto.CreatedAt,
         CreatedBy = createdByUser.Username,
         ShowOwnerInfo = dto.ShowOwner,
+
+        ColumnSupplier = dto.ColumnSupplier,
+        ColumnPrice = dto.ColumnPrice,
+        ColumnGrp = dto.ColumnGrp,
+        ColumnCondition = dto.ColumnCondition,
+
+        CardCode = dto.CardCode,
+        CardMedia = dto.CardMedia,
+        CardType = dto.CardType,
+        CardPrice = dto.CardPrice,
+        CardSide = dto.CardSide,
+        CardSupplier = dto.CardSupplier,
+
         Boards = dto.Boards == null || dto.Boards.Count == 0 ? null : dto.Boards.Select(a => a.ToContract()).ToArray(),
         Pois = dto.Pois == null || dto.Pois.Count == 0 ? null : dto.Pois.Select(a => a.ToContract()).ToArray()
     };
@@ -37,7 +62,7 @@ public static class ContractDto
         Address = br.Address,
         Angle = br.Angle,
         City = br.City,
-        Code = br.Code,
+        Code = br.Code,// ?? string.Empty,
         Condition = br.Condition,
         Description = br.Description,
         DoorsDix = br.DoorsDix,

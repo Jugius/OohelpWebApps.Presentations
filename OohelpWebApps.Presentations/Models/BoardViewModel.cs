@@ -10,6 +10,10 @@ public class BoardViewModel
     [JsonIgnore]
     public string SupplierCode { get; set; }
     
+    
+    [JsonIgnore]
+    public string Supplier { get; set; }
+
     [JsonIgnore]
     public string City { get; set; }
 
@@ -17,6 +21,12 @@ public class BoardViewModel
 
     [JsonIgnore]
     public string TypeSize { get; set; }
+
+    [JsonIgnore]
+    public decimal? Grp { get; set; }
+
+    [JsonIgnore]
+    public decimal? Price { get; set; }
 
     public double Latitude { get; set; }
     public double Longitude { get; set; }

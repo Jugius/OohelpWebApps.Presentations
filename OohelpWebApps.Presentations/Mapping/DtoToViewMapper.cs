@@ -20,7 +20,12 @@ namespace OohelpWebApps.Presentations.Mapping
             {
                 Boards = dto.Boards.Select(a => a.ToBoardViewModel()).ToArray(),
                 Name = dto.Name,
-                Description = dto.Description
+                Description = dto.Description,
+
+                ColumnGrp = dto.ColumnGrp,
+                ColumnPrice = dto.ColumnPrice,
+                ColumnSupplier = dto.ColumnSupplier,
+                ColumnCondition = dto.ColumnCondition,              
             };
         }
         public static Models.BoardViewModel ToBoardViewModel(this Domain.Data.BoardDto dto)
@@ -30,6 +35,9 @@ namespace OohelpWebApps.Presentations.Mapping
                 Id = dto.Id,
                 Address = dto.Address,
                 City = dto.City,
+                Grp = dto.Grp,
+                Price = dto.Price,
+                Supplier = dto.Supplier,
                 Latitude = dto.Latitude,
                 Longitude = dto.Longitude,
                 InfoHtml = GenerateHtmlInfo(dto),
@@ -44,7 +52,7 @@ namespace OohelpWebApps.Presentations.Mapping
             return dto.IconStyle switch
             {
                 IconStyle.OldDrop => CreateUri(dto.IconStyle, dto.IconColor),
-                IconStyle.OldCircle => CreateUri(dto.IconStyle, dto.IconColor),
+                IconStyle.OldCircle => new { icon = CreateUri(dto.IconStyle, dto.IconColor), color = dto.IconColor, strokeColor = dto.IconColor, scale = 1 },
                 IconStyle.Drop => CreateUri(dto.IconStyle, dto.IconColor),
                 IconStyle.Circle => CreateUri(dto.IconStyle, dto.IconColor),
                 IconStyle.Point => CreateUri(dto.IconStyle, dto.IconColor),
@@ -60,7 +68,7 @@ namespace OohelpWebApps.Presentations.Mapping
             StringBuilder sb = new StringBuilder("<div class=\"informWindow\"><strong>");
             sb.Append(dto.Code).Append(' ').Append(dto.Type).Append(' ').Append(dto.Size);
             if (dto.Ots.HasValue) sb.Append(" OTS = ").Append(dto.Ots.Value);
-            sb.Append("<img src=\"").Append(dto.Photo).Append("\" width=\"490\" height=\"340\">");
+            sb.Append("<img src=\"").Append(dto.Photo).Append('"');//.Append("\" width=\"490\" height=\"340\">");
             sb.Append("<br>").Append(dto.Address).Append("</strong><div>");
             return sb.ToString();
         }

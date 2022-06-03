@@ -15,6 +15,8 @@ public static class DomainToDtoMapper
             Description = dto.Description,
             CreatedAt = dto.CreatedAt,
             ShowOwnerInfo = dto.ShowOwner,
+            
+
             Boards = dto.Boards?.Select(a => a.ToBoardDomain()).ToList() ?? new List<Domain.Board>(0),
         };
     }

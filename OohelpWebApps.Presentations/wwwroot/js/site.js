@@ -1,10 +1,12 @@
-﻿var googleMap;
+﻿/// Use https://developers.google.com/maps/documentation/javascript/controls;
+var googleMap;
 var infoWindow;
 var googleMarkers = [];
 
 function initMap() {
     var mapOptions = {
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
     };    
     googleMap = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     infoWindow = new google.maps.InfoWindow();
@@ -55,6 +57,5 @@ function deselectRows() {
     var selected = document.getElementsByClassName("rowAct");
     for (var i = 0; i < selected.length; i++) {
         selected[i].className = "rowPass";
-
     }
 }

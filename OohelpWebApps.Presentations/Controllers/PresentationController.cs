@@ -31,7 +31,7 @@ namespace OohelpWebApps.Presentations.Controllers
             {
                 var company = _usersRepository.GetUserById(presentationDto.OwnerId).Company;
                 if (company != null)
-                    model.ClientInfo = new Models.ClientInfoViewModel { Logo = company.Id + ".png", Name = company.Name };
+                    model.ClientInfo = new Models.ClientInfoViewModel { Logo = company.Id + ".png", Name = company.Name, Site = company.SiteUri };
             }          
 
             return View(model);

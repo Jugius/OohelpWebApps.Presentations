@@ -12,7 +12,6 @@ public class BoardDto
     [MaxLength(64)]
     public string Supplier { get; set; }        
     
-    [Required]
     [MaxLength(32)]
     public string Code { get; set; }
 
