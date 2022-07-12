@@ -12,8 +12,8 @@ using OohelpWebApps.Presentations.Database;
 namespace OohelpWebApps.Presentations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220530150105_CreateDb")]
-    partial class CreateDb
+    [Migration("20220704121359_AddColumnsToPresentation")]
+    partial class AddColumnsToPresentation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,6 +182,12 @@ namespace OohelpWebApps.Presentations.Migrations
                     b.Property<bool>("CardType")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("ColumnAddress")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ColumnCity")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("ColumnCondition")
                         .HasColumnType("bit");
 
@@ -192,6 +198,12 @@ namespace OohelpWebApps.Presentations.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("ColumnSupplier")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ColumnSupplierCode")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ColumnTypeSize")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedAt")

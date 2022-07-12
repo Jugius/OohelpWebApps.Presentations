@@ -2,7 +2,7 @@
 
 namespace OohelpWebApps.Presentations.Api.Contracts.Responses;
 
-public class PresentationsResponse : BaseResponse
+public class PresentationsResponse : Response
 {
     public PresentationContract[] Presentations { get; set; }    
 }

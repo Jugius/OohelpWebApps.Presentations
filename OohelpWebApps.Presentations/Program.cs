@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OohelpWebApps.Presentations;
-using OohelpWebApps.Presentations.Domain;
-using OohelpWebApps.Presentations.Domain.Authentication;
+using OohelpWebApps.Presentations.Api.Services;
+using OohelpWebApps.Presentations.Database;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,8 +27,8 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
     //игнорировать свойства с нулевыми значениями
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
-
-builder.Services.AddScoped<InMemoryUsersRepository>();
+builder.Services.AddScoped<PresentationsService>();
+builder.Services.AddScoped<AuthenticationService>();
 
 var app = builder.Build();
 

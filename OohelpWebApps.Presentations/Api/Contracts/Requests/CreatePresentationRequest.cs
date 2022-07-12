@@ -1,15 +1,13 @@
 ﻿
-using OohelpWebApps.Presentations.Domain.Authentication;
+using OohelpWebApps.Presentations.Domain;
 
-namespace OohelpWebApps.Presentations.Domain;
+namespace OohelpWebApps.Presentations.Api.Contracts.Requests;
 
-public class Presentation
+public class CreatePresentationRequest : Request
 {
-    public Guid Id { get; set; }
     public string Name { get; set; }
-    public string Description { get; set; }    
+    public string Description { get; set; }
     public bool ShowOwnerInfo { get; set; }
-    public DateTime CreatedAt { get; set; }
 
     public bool ColumnSupplier { get; set; }
     public bool ColumnSupplierCode { get; set; }
@@ -30,9 +28,7 @@ public class Presentation
     public bool CardMedia { get; set; } = true;
     public bool CardSupplier { get; set; }
     public bool CardCode { get; set; }
-    
-    public List<Board> Boards { get; set; }
-    public List<Poi> Pois { get; set; }
-    public User Owner { get; set; }
 
+    public Board[] Boards { get; set; }
+    public Poi[] Pois { get; set; }
 }

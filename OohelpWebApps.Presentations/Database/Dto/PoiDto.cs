@@ -1,8 +1,7 @@
-﻿using OohelpWebApps.Presentations.Domain.Common.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OohelpWebApps.Presentations.Domain.Data
+namespace OohelpWebApps.Presentations.Database.Dto
 {
     public class PoiDto
     {
@@ -14,7 +13,7 @@ namespace OohelpWebApps.Presentations.Domain.Data
         public string Name { get; set; }
 
         [MaxLength(256)]
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public double Latitude { get; set; }
@@ -25,7 +24,7 @@ namespace OohelpWebApps.Presentations.Domain.Data
         [MaxLength(6)]
         [Column(TypeName = "varchar(6)")]
         public string IconColor { get; set; }
-        public IconStyle IconStyle { get; set; }
+        public int IconStyle { get; set; }
 
 
         public Guid PresentationId { get; set; }

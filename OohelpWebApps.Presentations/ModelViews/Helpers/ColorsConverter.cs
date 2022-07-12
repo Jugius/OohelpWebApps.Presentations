@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
-namespace OohelpWebApps.Presentations.Helpers
+namespace OohelpWebApps.Presentations.ModelViews.Helpers
 {
-    public class Colors
+    public class ColorsConverter
     {
         public static System.Drawing.Color HexToColor(string hexColor)
         {
@@ -35,6 +30,11 @@ namespace OohelpWebApps.Presentations.Helpers
             }
 
             return System.Drawing.Color.FromArgb(red, green, blue);
+        }
+        public static string HexToRgb(string hexColor)
+        {
+            var rgb = HexToColor(hexColor);
+            return $"rgb({rgb.R}, {rgb.G}, {rgb.B})";
         }
     }
 }

@@ -26,4 +26,6 @@ public class Board
     public string Description { get; set; }
     public string IconColor { get; set; }
     public IconStyle IconStyle { get; set; }
+
+    public Guid PresentationId { get; set; }
 }

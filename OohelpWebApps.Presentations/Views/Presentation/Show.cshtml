@@ -4,58 +4,63 @@
 @{
     Layout = null;    
 }
-@model OohelpWebApps.Presentations.Models.PresentationViewModel
+@model PresentationViewModel
 
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    @*<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,600,800" rel="stylesheet">*@
+<head>    
     @await Html.PartialAsync("MetatagsPartial")
     @await Html.PartialAsync("CssPartial")
     @await Html.PartialAsync("ScriptsPartial")
     
-    <title>@Model.Name</title>
+    <title>@(string.IsNullOrEmpty(Model.Description) ?  Model.Name : (Model.Name + " - " + Model.Description))</title>
 </head>
 
-<body style="overflow: hidden">
+<body>
+
     <script type="text/javascript">
         var markers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Boards, 
             new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
     </script>
 
-    <div id="panel-left" style="width: 35%; height: 100%; float: left; opacity: 1">
-        <div id="panel-header" style="width:100%; height:72px;">
-            @if (Model.ClientInfo != null)
-            {
-                <div id="headerLogo" style="width:100px; float:left;">
-                    <a href="@(Model.ClientInfo.Site ?? "http://oohelp.net")" target="_blank"><img id="imgHeaderLogo" src="~/images/AD Strategy Logo_orig_w150.png"; style="margin-left:15px; margin-top:15px;" /></a>
-                </div>   
-                <div id="presInfo" style="float: right; text-align:center; margin-top:15px; margin-right:15px">
+    <div id="panel-left">
+        @if (Model.ClientInfo != null)
+        {
+            <div id="panel-header">
+                <div id="panel-header-left">
+                    <a href="@(Model.ClientInfo.Site ?? "https://oohelp.net")" target="_blank"><img style="margin-left: 15px;" src="~/images/@Model.ClientInfo.Logo" alt="" /></a>    
+                </div>
+                
+                <div id="panel-header-right">
+                    <div id="presInfo">
+                        <h1>@Model.Name</h1>
+                        <span class="pres-Descript">@Model.Description</span>
+                    </div>                    
+                </div>            
+            </div>
+        }
+        else
+        {
+            <div id="panel-header" style="display: flex; align-items: center; justify-content: center;">
+                <div style="text-align:center">
                     <h1>@Model.Name</h1>
                     <span class="pres-Descript">@Model.Description</span>
                 </div>
-            }
-            else
-            {
-                <div id="presInfo" style="text-align:center; margin-top:15px; margin-right:15px">
-                    <h1>@Model.Name</h1>
-                    <span class="pres-Descript">@Model.Description</span>
-                </div>
-            }
-            
-        </div>
+                
+            </div>
+        }
 
         <form id="frmBoards" style="overflow:auto; overflow-x:hidden; height: calc(100vh - 72px)">
-            <br>
+
             <table id="tabBoardsId" class="tabBoards">
                 <thead>
                     <tr>
                         @*<th></th>*@
-                        <th>Код</th>
-                        @if (Model.ColumnSupplier) { <th>Оператор</th> }                        
-                        <th>Город</th>
-                        <th>Тип</th>
-                        <th>Адрес</th>
+                        @if (Model.ColumnSupplierCode) { <th>Код</th> }                        
+                        @if (Model.ColumnSupplier) { <th>Оператор</th> }
+                        @if (Model.ColumnCity) { <th>Город</th> }
+                        @if (Model.ColumnTypeSize) { <th>Тип</th> }
+                        @if (Model.ColumnAddress) { <th>Адрес</th> }
                         @if (Model.ColumnGrp) { <th>GRP</th> }                        
                         @if (Model.ColumnPrice) { <th>Цена</th> }                        
                     </tr>
@@ -67,11 +72,11 @@
                            @* <td width=5%>
                                 <input name="ch[]" class="checkbox" id=@brd.CheckBoxId() type="checkbox" value=@brd.SupplierCode>
                             </td>*@
-                            <td width=10%>@brd.SupplierCode</td>
-                            @if (Model.ColumnSupplier) { <td width=10%>@brd.Supplier</td>}                        
-                            <td width=15%>@brd.City</td>
-                            <td width=12%>@brd.TypeSize</td>
-                            <td>@brd.Address</td>
+                            @if (Model.ColumnSupplierCode) { <td style="white-space:nowrap">@brd.SupplierCode</td> }                            
+                            @if (Model.ColumnSupplier) { <td width=10%>@brd.Supplier</td>}   
+                            @if (Model.ColumnCity) { <td>@brd.City</td> }
+                            @if (Model.ColumnTypeSize) { <td>@brd.TypeSize</td>}
+                            @if (Model.ColumnAddress) { <td>@brd.Address</td> }
                             @if (Model.ColumnGrp) { <td width=5%>@brd.Grp</td> }                        
                             @if (Model.ColumnPrice) { <td width=5%>@brd.Price</td> }           
                         </tr>
@@ -80,8 +85,8 @@
             </table>
         </form>      
     </div>
-        <div id="map-canvas" style="position:relative; overflow: hidden">
-    </div>
+    
+    <div id="map-canvas"/>
 
     <script async=async defer=defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnJoPklL83K0yIO0KFlngFOzt0hOLwuVg&callback=initMap" type="text/javascript"></script>
 

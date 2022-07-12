@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OohelpWebApps.Presentations.Domain;
+using OohelpWebApps.Presentations.Database;
 
 #nullable disable
 
@@ -180,6 +180,12 @@ namespace OohelpWebApps.Presentations.Migrations
                     b.Property<bool>("CardType")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("ColumnAddress")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ColumnCity")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("ColumnCondition")
                         .HasColumnType("bit");
 
@@ -190,6 +196,12 @@ namespace OohelpWebApps.Presentations.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("ColumnSupplier")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ColumnSupplierCode")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ColumnTypeSize")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedAt")

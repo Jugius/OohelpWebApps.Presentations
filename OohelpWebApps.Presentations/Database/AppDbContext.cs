@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OohelpWebApps.Presentations.Domain.Data;
+using OohelpWebApps.Presentations.Database.Dto;
 
-namespace OohelpWebApps.Presentations.Domain;
+namespace OohelpWebApps.Presentations.Database;
 
 public class AppDbContext : DbContext
 {

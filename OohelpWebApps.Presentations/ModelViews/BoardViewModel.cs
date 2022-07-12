@@ -1,7 +1,6 @@
-﻿
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace OohelpWebApps.Presentations.Models;
+namespace OohelpWebApps.Presentations.ModelViews;
 
 public class BoardViewModel
 {
@@ -9,8 +8,7 @@ public class BoardViewModel
 
     [JsonIgnore]
     public string SupplierCode { get; set; }
-    
-    
+
     [JsonIgnore]
     public string Supplier { get; set; }
 
@@ -32,9 +30,8 @@ public class BoardViewModel
     public double Longitude { get; set; }
     public object Icon { get; set; }
     public string InfoHtml { get; init; }
-    
 
-    public string CheckBoxId() => "chcode" + this.Id.ToString();
-    
+    public string CheckBoxId() => "chcode" + Id.ToString();
+
 
 }

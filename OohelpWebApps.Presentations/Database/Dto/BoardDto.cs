@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OohelpWebApps.Presentations.Domain.Data;
+namespace OohelpWebApps.Presentations.Database.Dto;
 
 public class BoardDto
 {
@@ -10,8 +10,8 @@ public class BoardDto
 
     [Required]
     [MaxLength(64)]
-    public string Supplier { get; set; }        
-    
+    public string Supplier { get; set; }
+
     [MaxLength(32)]
     public string Code { get; set; }
 
@@ -58,16 +58,16 @@ public class BoardDto
 
     public decimal? Grp { get; set; }
 
-    public string Photo { get; set; }    
+    public string Photo { get; set; }
     public BoardCondition Condition { get; set; }
 
     [MaxLength(256)]
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     [MaxLength(6)]
     [Column(TypeName = "varchar(6)")]
     public string IconColor { get; set; }
-    public IconStyle IconStyle { get; set; }
+    public int IconStyle { get; set; }
 
 
     public Guid PresentationId { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OohelpWebApps.Presentations.Api.Contracts
 {
-    public abstract class BaseRequest : Common.Interfaces.IRequest
+    public abstract class Request
     {
         public string Key { get; set; }
     }

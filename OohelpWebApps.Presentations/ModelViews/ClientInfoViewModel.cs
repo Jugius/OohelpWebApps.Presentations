@@ -1,4 +1,4 @@
-﻿namespace OohelpWebApps.Presentations.Models;
+﻿namespace OohelpWebApps.Presentations.ModelViews;
 
 public class ClientInfoViewModel
 {
