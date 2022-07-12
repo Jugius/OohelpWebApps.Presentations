@@ -9,6 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentations.UnitTest", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OohelpWebApps.Presentations", "OohelpWebApps.Presentations\OohelpWebApps.Presentations.csproj", "{A26FE6D7-8A2F-4D60-97D8-E2BD899AF59A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OohelpWebApps.Presentations.ApiClient", "OohelpWebApps.Presentations.ApiClient\OohelpWebApps.Presentations.ApiClient.csproj", "{4FABE8BF-0884-4A11-887C-E98CA82B4D3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BDB0177B-92A5-43E9-A916-4AA0AA40E3A1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{D9E8E339-6E61-4F2B-90C8-0215FE854303}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentations.ApiClientTest", ".Tests\Presentations.ApiClientTest\Presentations.ApiClientTest.csproj", "{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +34,22 @@ Global
 		{A26FE6D7-8A2F-4D60-97D8-E2BD899AF59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A26FE6D7-8A2F-4D60-97D8-E2BD899AF59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A26FE6D7-8A2F-4D60-97D8-E2BD899AF59A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FABE8BF-0884-4A11-887C-E98CA82B4D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FABE8BF-0884-4A11-887C-E98CA82B4D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FABE8BF-0884-4A11-887C-E98CA82B4D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FABE8BF-0884-4A11-887C-E98CA82B4D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{91CE6F02-7E69-4DA6-AB4A-18388CCC8A83} = {DCA35F02-06FB-4B08-A78B-7FA4B71748A4}
+		{4FABE8BF-0884-4A11-887C-E98CA82B4D3C} = {D9E8E339-6E61-4F2B-90C8-0215FE854303}
+		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7} = {DCA35F02-06FB-4B08-A78B-7FA4B71748A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28F4C2AD-1057-454E-9FBB-853F74A62D7A}
