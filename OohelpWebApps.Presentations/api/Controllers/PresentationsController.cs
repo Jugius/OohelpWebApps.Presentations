@@ -26,7 +26,17 @@ public class PresentationsController : Controller
         else
             return Json(result.Error.ToResponse());
     }
-    
+    [HttpPost("ById")]
+    public async Task<ActionResult> GetById(GetPresentationRequest request)
+    {
+        var result = await _presentationsService.Get(request);
+
+        if (result.Success)
+            return Json(result.Value.ToResponse());
+        else
+            return Json(result.Error.ToResponse());
+    }
+
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreatePresentationRequest request)
     {

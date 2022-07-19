@@ -1,6 +1,9 @@
-﻿namespace OohelpWebApps.Presentations.ApiClient.Entities.Presentations.Requests;
+﻿using OohelpWebApps.Presentations.ApiClient.Entities.Interfaces;
 
-public class GetPresentationRequest : BaseResponse
+namespace OohelpWebApps.Presentations.ApiClient.Entities.Presentations.Requests;
+
+public class GetPresentationRequest : BasePresentationRequest, IRequestPost
 {
+    public override string GetUri() => base.GetUri() + "/byid";
     public Guid Id { get; set; }
 }
