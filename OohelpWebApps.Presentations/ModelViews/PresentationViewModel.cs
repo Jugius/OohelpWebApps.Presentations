@@ -19,6 +19,8 @@
 
         public ClientInfoViewModel ClientInfo { get; set; }
         public BoardViewModel[] Boards { get; set; }
+
+        public string GoogleMapApiKey { get; set; }
     }
 
 }

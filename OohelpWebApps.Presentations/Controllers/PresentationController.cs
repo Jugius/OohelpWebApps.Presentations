@@ -7,10 +7,12 @@ namespace OohelpWebApps.Presentations.Controllers
     public class PresentationController : Controller
     {
         private readonly Api.Services.PresentationsService presentationsService;
+        private readonly IConfiguration configuration;
 
-        public PresentationController(PresentationsService presentationsService)
+        public PresentationController(PresentationsService presentationsService, IConfiguration configuration)
         {
             this.presentationsService = presentationsService;
+            this.configuration = configuration;
         }
 
         public async Task<IActionResult> Show(string id)
@@ -26,6 +28,7 @@ namespace OohelpWebApps.Presentations.Controllers
 
 
             var model = result.Value.ToViewModel();
+            model.GoogleMapApiKey = this.configuration.GetValue<string>("GoogleMapApiKey");
 
             return View(model);
 
