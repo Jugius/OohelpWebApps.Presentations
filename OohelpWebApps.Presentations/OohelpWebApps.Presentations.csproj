@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>237fe941-cc0e-489d-af51-7a6cea76f06c</UserSecretsId>
   </PropertyGroup>
 
 	<Choose>
@@ -22,10 +23,6 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
-	</ItemGroup>
-	
-	<ItemGroup>		
-		<Content Update="appsettings.Development.json" CopyToPublishDirectory="Never" />
 	</ItemGroup>
 
   <ItemGroup>

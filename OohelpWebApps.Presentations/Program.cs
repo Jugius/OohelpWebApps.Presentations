@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using OohelpWebApps.Presentations;
 using OohelpWebApps.Presentations.Api.Services;
 using OohelpWebApps.Presentations.Database;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.Bind("Project", new AppConfig());
-builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(AppConfig.ConnectionString));
+//builder.Configuration.Bind("Project", new AppConfig());
+
+var connectionString = builder.Configuration.GetValue<string>("ConnectionString");
+builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
@@ -28,7 +29,7 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 builder.Services.AddScoped<PresentationsService>();
-builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddSingleton<AuthenticationService>();
 
 var app = builder.Build();
 

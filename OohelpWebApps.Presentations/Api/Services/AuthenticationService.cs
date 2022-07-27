@@ -7,6 +7,11 @@ namespace OohelpWebApps.Presentations.Api.Services;
 
 public class AuthenticationService
 {
+    private List<User> Users { get; }
+    public AuthenticationService(IConfiguration configuration)
+    {
+        this.Users = configuration.GetSection("Users").Get<List<User>>();
+    }
     public OperationResult<User> Authenticate(string apiKey)
     {
         Guid guidId;
@@ -21,9 +26,9 @@ public class AuthenticationService
         return new OperationResult<User>(user);
 
     }
-    public User GetUserByKey(Guid userKey) => AppConfig.Users.FirstOrDefault(x => x.Key.Id == userKey);
-    public User GetUserById(Guid id) => AppConfig.Users.FirstOrDefault(x => x.Id == id);
-    public IEnumerable<User> GetUsersByCompanyId(Guid companyId) => AppConfig.Users.Where(a => a?.Company.Id == companyId);
+    public User GetUserByKey(Guid userKey) => Users.FirstOrDefault(x => x.Key.Id == userKey);
+    public User GetUserById(Guid id) => Users.FirstOrDefault(x => x.Id == id);
+    public IEnumerable<User> GetUsersByCompanyId(Guid companyId) => Users.Where(a => a?.Company.Id == companyId);
 
     public bool AllowGetPresentation(User user, Guid ownerId)
     {

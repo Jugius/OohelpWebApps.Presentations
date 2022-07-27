@@ -95,6 +95,7 @@ h2 {
     background-color: none;
     /*color: #727a84;*/
     cursor: pointer;
+    /*transition-duration: 0.3s;*/
 }
 
 .rowAct {
