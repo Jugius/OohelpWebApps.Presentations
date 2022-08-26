@@ -24,6 +24,8 @@ namespace OohelpWebApps.Presentations.Mapping
                 ColumnTypeSize = pr.ColumnTypeSize,
 
                 Boards = pr.Boards.Select(a => a.ToViewModel(htmlBuilder)).ToArray(),
+                Pois = pr.Pois.Select(a => a.ToViewModel()).ToArray(),
+
                 ClientInfo = pr.ShowOwnerInfo ? pr.Owner.ToViewModel() : null,
             };
             return viewModel;
@@ -51,6 +53,16 @@ namespace OohelpWebApps.Presentations.Mapping
                 Name = user.Company?.Name ?? user.Username,
                 Logo = user.Company == null ? null : (user.Company.Id + ".png"),
                 Site = user.Company?.SiteUri ?? null
+            };
+
+        public static PoiViewModel ToViewModel(this Poi poi) =>
+            new PoiViewModel
+            {
+                Address = poi.Name,
+                Description = poi.Description,
+                Latitude = poi.Latitude,
+                Longitude = poi.Longitude,
+                Icon = ModelViews.Helpers.MarkerIconBuilder.BuildIcon(poi)
             };
     }
 }

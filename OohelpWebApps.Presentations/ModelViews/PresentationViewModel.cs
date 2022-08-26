@@ -19,6 +19,7 @@
 
         public ClientInfoViewModel ClientInfo { get; set; }
         public BoardViewModel[] Boards { get; set; }
+        public PoiViewModel[] Pois { get; set; }
 
         public string GoogleMapApiKey { get; set; }
     }

@@ -19,8 +19,12 @@
 <body>
 
     <script type="text/javascript">
-        var markers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Boards, 
+        var boards = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Boards, 
             new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+
+        var pois = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Pois,
+            new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+
     </script>
 
     <div id="panel-left">

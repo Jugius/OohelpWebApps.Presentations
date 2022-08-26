@@ -37,6 +37,20 @@ public class MarkerIconBuilder
 
         _ => CreateUri(dto.IconStyle, dto.IconColor)
     };
+    public static object BuildIcon(Poi dto) => dto.IconStyle switch
+    {
+        IconStyle.OldCircle => new
+        {
+            path = 0,
+            fillColor = ColorsConverter.HexToRgb(dto.IconColor),
+            fillOpacity = 1,
+            strokeWeight = 1,
+            strokeOpacity = 0.7,
+            scale = 6
+        },       
+
+        _ => CreateUri(dto.IconStyle, dto.IconColor)
+    };
 
     private static Uri CreateUri(IconStyle style, string color) => style switch
     {
