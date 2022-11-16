@@ -3,7 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+	<AssemblyName>OohelpSoft.WebApps.Presentations.ApiClient</AssemblyName>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+	  <Version>1.0.0</Version>
+	  <Authors>OoHelp.Net</Authors>
+	  <Company>OoHelp.Net</Company>
+	  <PackageId>$(AssemblyName)</PackageId>
+	  <Copyright>OoHelp.Net</Copyright>
+	  <Description>API клиент для приложения Presentations</Description>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
