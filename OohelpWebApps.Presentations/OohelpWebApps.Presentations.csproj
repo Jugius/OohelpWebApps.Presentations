@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>237fe941-cc0e-489d-af51-7a6cea76f06c</UserSecretsId>
@@ -9,8 +9,8 @@
 
 	<Choose>
 		<When Condition="'$(Configuration)' == 'Debug'">
-			<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-				<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+			<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+				<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
 					<PrivateAssets>all</PrivateAssets>
 					<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 				</PackageReference>
@@ -21,8 +21,8 @@
 	</Choose>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
 	</ItemGroup>
 
   <ItemGroup>
