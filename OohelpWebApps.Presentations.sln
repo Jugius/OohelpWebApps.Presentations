@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{D9E8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentations.ApiClientTest", ".Tests\Presentations.ApiClientTest\Presentations.ApiClientTest.csproj", "{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OohelpWebApps.Presentations.Domain", "src\OohelpWebApps.Presentations.Domain\OohelpWebApps.Presentations.Domain.csproj", "{99D42B51-C1DA-49E1-B32F-59657CBC900E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,10 @@ Global
 		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D42B51-C1DA-49E1-B32F-59657CBC900E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D42B51-C1DA-49E1-B32F-59657CBC900E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D42B51-C1DA-49E1-B32F-59657CBC900E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D42B51-C1DA-49E1-B32F-59657CBC900E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +58,7 @@ Global
 		{91CE6F02-7E69-4DA6-AB4A-18388CCC8A83} = {DCA35F02-06FB-4B08-A78B-7FA4B71748A4}
 		{4FABE8BF-0884-4A11-887C-E98CA82B4D3C} = {D9E8E339-6E61-4F2B-90C8-0215FE854303}
 		{0CCB3985-907F-4474-B58F-BC9BAB1A27C7} = {DCA35F02-06FB-4B08-A78B-7FA4B71748A4}
+		{99D42B51-C1DA-49E1-B32F-59657CBC900E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28F4C2AD-1057-454E-9FBB-853F74A62D7A}
